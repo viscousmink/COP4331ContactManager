@@ -10,5 +10,5 @@ app.get('/*', (req, res) => {
   res.sendFile('index.html', { root: __dirname});
 });
 
-const {PORT} = process.env;
-app.listen(PORT, () => console.log('Wizardous stuff on ${PORT}'))
+const PORT = process.env.PORT;
+app.listen(PORT, () => console.log('Wizardous stuff on ' + PORT))
