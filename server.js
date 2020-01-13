@@ -11,7 +11,7 @@ const bodyParser = require('body-parser')
 //  client.close();
 //});
 
-require('./database.js');
+const database = require('./database.js');
 
 const app = express()
 app.use(bodyParser.json())
