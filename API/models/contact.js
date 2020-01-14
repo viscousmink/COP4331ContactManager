@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// _id is implied
 const contactSchema = mongoose.Schema({
 	user_id: String
 });
