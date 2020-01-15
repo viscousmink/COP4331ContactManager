@@ -4,23 +4,15 @@ const insert = function(db) {
 	db.collection('startingout').insertOne( {
 		"id": "Something"
 	}, function(err, result) {
-		assert.equal(err, null);
-		console.log('Inserted a document into the db');
+		if(err == null) {
+			console.log('Inserted a document into the db');
+		}
 	});
 }
 
 class Database {
 	constructor() {
 		this._connect()
-	}
-
-	insert(db) {
-		db.collection('startingout').insertOne( {
-			"id": "Something"
-		}, function(err, result) {
-			assert.equal(err, null);
-			console.log('Inserted a document into the db');
-		});
 	}
 
 	_connect() {
