@@ -46,7 +46,7 @@ class Database {
 	  			console.log('DB name is : ' + db.databaseName);
 	  			db.collection('startingout').findOne({}, function(err, result) {
     				if (err) throw err;
-    				console.log(result.name);
+    				console.log(result);
     				db.close();
   					});
 			}
