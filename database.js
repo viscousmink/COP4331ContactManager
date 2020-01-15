@@ -12,6 +12,27 @@ const insert = function(db) {
 	});
 }
 
+var insertDocument = function(db) {
+db.collection('families').insertOne( {
+        "id": "AndersenFamily",
+        "lastName": "Andersen",
+        "parents": [
+            { "firstName": "Thomas" },
+            { "firstName": "Mary Kay" }
+        ],
+        "children": [
+            { "firstName": "John", "gender": "male", "grade": 7 }
+        ],
+        "pets": [
+            { "givenName": "Fluffy" }
+        ],
+        "address": { "country": "USA", "state": "WA", "city": "Seattle" }
+    }, function(err, result) {
+    console.log("Inserted a document into the families collection.");
+    callback();
+});
+};
+
 class Database {
 	constructor() {
 		this._connect()
@@ -23,9 +44,10 @@ class Database {
 	  			console.log('Connected');
 	  			var db = client.db('startingout');
 	  			console.log('DB name is : ' + db.databaseName);
-	  			insert(db)
+	  			insertDocument(db, function() {
+	  				client.close();
+	  			});
 			}
-			client.close();
 		});
 	}
 }
