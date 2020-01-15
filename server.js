@@ -18,3 +18,20 @@ app.get('/*', (req, res) => {
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => console.log('Wizardous stuff on ' + PORT))
+
+
+//test code
+databaseID = 'firstDBID';
+containerID = 'firstCID';
+item ={
+	id: 'TestOut.1',
+	country: 'USA',
+	name: 'firstName',
+	lastName: 'lastName'
+	}
+
+const { database } = await mongoClient.databases.createIfNotExists({ id: databaseID });
+
+const { container } = await mongoClient.database(databaseId).containers.createIfNotExists({ id: containerID });
+
+const { item } = await client.database(databaseId).container(containerId).items.create(item);
