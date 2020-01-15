@@ -3,10 +3,14 @@ const express = require('express')
 const bodyParser = require('body-parser')
 //const database = require('./database.js');
 
-var mongoClient = require("mongodb").MongoClient;
-mongoClient.connect("mongodb://viscousmink:03VnXo6H953S1Ixpw5H35vYG5auG1XfCrg7y9Of6l87JdGCCQux1gDGP9AlEw9DpoVg0ykzY0BrT4ZmtzunLwg%3D%3D@viscousmink.documents.azure.com:10255/?ssl=true", function (err, client) {
-  client.close();
-})
+const CosmosClient = require('@azure/cosmos').CosmosClient;
+
+const mongoClient = new CosmosClient("mongodb://viscousmink:03VnXo6H953S1Ixpw5H35vYG5auG1XfCrg7y9Of6l87JdGCCQux1gDGP9AlEw9DpoVg0ykzY0BrT4ZmtzunLwg==@viscousmink.documents.azure.com:10255/?ssl=true&replicaSet=globaldb")
+
+//var mongoClient = require("mongodb").MongoClient;
+//mongoClient.connect("mongodb://viscousmink:03VnXo6H953S1Ixpw5H35vYG5auG1XfCrg7y9Of6l87JdGCCQux1gDGP9AlEw9DpoVg0ykzY0BrT4ZmtzunLwg%3D%3D@viscousmink.documents.azure.com:10255/?ssl=true", function (err, client) {
+//  client.close();
+//})
 
 const app = express()
 app.use(bodyParser.json())
@@ -21,9 +25,9 @@ app.listen(PORT, () => console.log('Wizardous stuff on ' + PORT))
 
 
 //test code
-databaseID = 'firstDBID';
-containerID = 'firstCID';
-item ={
+const databaseID = 'firstDBID';
+const containerID = 'firstCID';
+const itemID = {
 	id: 'TestOut.1',
 	country: 'USA',
 	name: 'firstName',
