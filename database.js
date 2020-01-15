@@ -6,6 +6,8 @@ const insert = function(db) {
 	}, function(err, result) {
 		if(err == null) {
 			console.log('Inserted a document into the db');
+		} else {
+			console.log('failed insertion');
 		}
 	});
 }
