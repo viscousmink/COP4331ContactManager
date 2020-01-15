@@ -47,8 +47,8 @@ class Database {
 	  			db.collection('startingout').findOne({}, function(err, result) {
     				if (err) throw err;
     				console.log(result);
-    				db.close();
   					});
+	  			client.close();
 			}
 		});
 	}
