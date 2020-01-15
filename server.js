@@ -30,8 +30,8 @@ item ={
 	lastName: 'lastName'
 	}
 
-const { database } = await mongoClient.databases.createIfNotExists({ id: databaseID });
+const { database } = mongoClient.databases.createIfNotExists({ id: databaseID });
 
-const { container } = await mongoClient.database(databaseId).containers.createIfNotExists({ id: containerID });
+const { container } = mongoClient.database(databaseId).containers.createIfNotExists({ id: containerID });
 
-const { item } = await client.database(databaseId).container(containerId).items.create(item);
+const { item } = client.database(databaseId).container(containerId).items.create(item);
