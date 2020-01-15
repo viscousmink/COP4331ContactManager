@@ -44,7 +44,11 @@ class Database {
 	  			console.log('Connected');
 	  			var db = client.db('startingout');
 	  			console.log('DB name is : ' + db.databaseName);
-	  			client.close()
+	  			db.collection('startingout').findOne({}, function(err, result) {
+    				if (err) throw err;
+    				console.log(result.name);
+    				db.close();
+  					});
 			}
 		});
 	}
