@@ -25,6 +25,7 @@ class Database {
 	  			console.log('DB name is : ' + db.databaseName);
 	  			insert(db)
 			}
+			client.close();
 		});
 	}
 }
