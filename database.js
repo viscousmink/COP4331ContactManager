@@ -44,7 +44,7 @@ class Database {
 	  			console.log('Connected');
 	  			var db = client.db('startingout');
 	  			console.log('DB name is : ' + db.databaseName);
-	  			db.collection('startingout').findOne({}, function(err, result) {
+	  			db.collection('startingout').InsertOne({"id": "Something"}, function(err, result) {
     				if (err) throw err;
     				console.log(result);
   					});
