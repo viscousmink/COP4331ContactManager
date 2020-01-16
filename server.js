@@ -10,7 +10,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
 
 app.get('/*', (req, res) => {
-  res.sendFile('index.html', { root: __dirname});
+	res.sendFile('index.html', { root: __dirname});
 });
 
 const PORT = process.env.PORT;
