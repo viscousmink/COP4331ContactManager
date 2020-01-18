@@ -14,7 +14,7 @@
     "html-webpack-plugin": "^3.2.0",
     "inherits": "^2.0.4",
     "mongodb": "^3.5.0",
-    "mongoose": "^5.8.7",
+    "mongoose": "^5.8.9",
     "toidentifier": "^1.0.0",
     "util-deprecate": "^1.0.2"
   }
