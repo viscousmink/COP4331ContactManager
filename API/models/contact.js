@@ -10,9 +10,13 @@
 //module.exports = contact;
 
 class Contact {
-	constructor(name) {
-		this.JSON = {
+	constructor() {
+	}
+
+	_createContact(name) {
+		JSON = {
 			"name": name
 		}
+		return JSON
 	}
 }
