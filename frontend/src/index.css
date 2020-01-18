@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.home-input {
+  padding: 1rem;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-input-field {
+  margin: .5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+#exampleEmail {
+  padding: .3rem;
+  width: 60%;
+  border-radius: .5em;
+  border: none;
+}
+
+#examplePassword {
+  padding: .3rem;
+  width: 60%;
+  border-radius: .5em;
+  border: none;
+}
+
+#sign-in {
+  margin: 1em;
+  padding: 1em;
+  border-radius: 1em;
+}
