@@ -10,9 +10,15 @@
 //module.exports = user;
 
 class User {
-	constructor(user) {
-		this.JSON = {
-			"userID": user
+	constructor() {
+	}
+
+	_createUser(name) {
+		JSON = {
+			"name": name
 		}
+		return JSON
 	}
 }
+
+module.exports = new User()

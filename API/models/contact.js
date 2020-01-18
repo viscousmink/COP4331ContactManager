@@ -20,3 +20,5 @@ class Contact {
 		return JSON
 	}
 }
+
+module.exports = new Contact()
