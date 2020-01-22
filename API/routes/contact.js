@@ -6,7 +6,13 @@ const sanitize = require('mongo-sanitize');
 const database = require('../../database.js');
 const MongoClient = require('mongodb').MongoClient;
 const client = new MongoClient(database.URL, {useUnifiedTopology: true});
-client.connect()
+client.connect(function(err, db) {
+	if (err) {
+        console.log('Unable to connect to the server. Please start the server. Error:', err);
+    } else {
+        console.log('Connected to Server successfully!');
+    }
+})
 
 /* Possible Post requests
 	allContacts: 
@@ -26,10 +32,10 @@ Status Codes :
 
 router.post('/allcontacts', async(req, res, next) =>
 {
-	const user = sanitize(req.body.user);
+	/*const user = sanitize(req.body.user);
 
 	var err = '';
-	/* if(user) {
+	if(user) {
 		Contact.find({user: user}, function(err, documents){
 			if(!err) {
 				res.statusCode = 200;
@@ -62,7 +68,7 @@ router.post('/allcontacts', async(req, res, next) =>
 		}
 		var ret = {results:_ret, error:err};
   		res.status(200).json(ret)
-	}
+	} 
 });
 
 router.post('/addcontact', async(req, res, next) =>
@@ -76,7 +82,7 @@ router.post('/addcontact', async(req, res, next) =>
     const city = sanitize(req.body.city);
     const state = sanitize(req.body.state);
 
-    /* if(user) {
+    /*if(user) {
     	const contact = new Contact({
     		_id: new mongoose.Types.ObjectId(),
     		user: user,
@@ -174,7 +180,7 @@ router.post('/deletecontact', async(req, res, next) =>
 
 
 
-	/* if(user) {
+	/*if(user) {
 		Contact.remove({user: user}, function(err) {
 			if(!err) {
 				res.statusCode = 200;

@@ -6,7 +6,13 @@ const sanitize = require('mongo-sanitize');
 const database = require('../../database.js');
 const MongoClient = require('mongodb').MongoClient;
 const client = new MongoClient(database.URL, {useUnifiedTopology: true});
-client.connect();
+client.connect(function(err, db) {
+	if (err) {
+        console.log('Unable to connect to the server. Please start the server. Error:', err);
+    } else {
+        console.log('Connected to Server successfully!');
+    }
+});
 
 /* Possible Post requests
 	login:
@@ -27,7 +33,7 @@ router.post('/login', async(req, res, next) =>
 	const user = sanitize(req.body.user_name);
 	const password = sanitize(req.body.password);
 
-	/* if(user && password) {
+	/*if(user && password) {
 		User.findOne({user: user, password: password}).exec().then(function(document) {
 			console.log(document);
 			if(document) {
@@ -94,7 +100,7 @@ router.post('/createuser', async(req, res, next) =>
 	} else {
 		res.statusCode = 201;
 		res.json({msg: "no_user_provided"});
-	} */
+	}*/
 });
 
 module.exports = router;
