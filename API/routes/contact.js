@@ -16,7 +16,7 @@ const sanitize = require('mongo-sanitize');
 Status Codes :
 	200: complete success
 	201: no_user_provided
-	202: document_not_found
+	204: document_not_found
 	500: ERROR!
 */
 
@@ -31,9 +31,7 @@ router.post('/allcontacts', function(req, res) {
 				});
 			} else {
 				res.statusCode = 500;
-				res.json({
-					msg: err
-				})
+				res.json({msg: err})
 			}
 		});
 	} else {
@@ -44,24 +42,34 @@ router.post('/allcontacts', function(req, res) {
 
 router.post('/addcontact', function(req, res) {
     const user = sanitize(req.body.user);
+    const first_name = sanitize(req.body.first_name);
+    const last_name = sanitize(req.body.last_name);
+    const phone_number = sanitize(req.body.phone_number);
+    const email = sanitize(req.body.email);
+    const street = sanitize(req.body.street);
+    const city = sanitize(req.body.city);
+    const state = sanitize(req.body.state);
 
     if(user) {
     	const contact = new Contact({
     		_id: new mongoose.Types.ObjectId(),
-    		user: user
+    		user: user,
+    		first_name: first_name,
+    		last_name: last_name,
+    		phone_number: phone_number,
+    		email: email,
+    		street: street,
+    		city: city,
+    		state: state
     	});
     	contact.save().then(function(result) {
     		console.log(result);
     		res.statusCode = 200;
-    		res.json({
-    			addedContact: contact
-    		});
+    		res.json({addedContact: contact});
     	}).catch(function(err) {
     		console.log(err);
     		res.statusCode = 500
-    		res.json({
-    			error: err
-    		});
+    		res.json({msg: err});
     	});
     } else {
     	res.statusCode = 201;
