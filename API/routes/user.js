@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const router = express.Router();
 const Contact = require('../models/user.js');
 const sanitize = require('mongo-sanitize');
+const database = require('../../database.js');
+const MongoClient = require('mongodb').MongoClient;
+const client = new MongoClient(database.URL, {useUnifiedTopology: true});
+client.connect();
 
 /* Possible Post requests
 	login:
@@ -18,11 +22,12 @@ Status Codes :
 	500: ERROR!
 */
 
-router.post('/login', function(req, res) {
+router.post('/login', async(req, res, next) =>
+{
 	const user = sanitize(req.body.user_name);
 	const password = sanitize(req.body.password);
 
-	if(user && password) {
+	/* if(user && password) {
 		User.findOne({user: user, password: password}).exec().then(function(document) {
 			console.log(document);
 			if(document) {
@@ -36,17 +41,38 @@ router.post('/login', function(req, res) {
 	} else {
 		res.statusCode = 201;
 		res.json({msg: "no_user_provided"});
-	}
-})
+	} */
 
-router.post('/createuser', function(req, res) {
+	const db = client.db();
+	const results = await db.collection('Users').find({"user": user, "password": password}).toArray();
+
+	//IMPLEMENT
+	//IMPLEMENT
+	//IMPLEMENT
+
+});
+
+router.post('/createuser', async(req, res, next) => 
+{
 	const user = sanitize(req.body.user);
 	const password = sanitize(req.body.password);
-	const first = sanitize(req.body.first);
-	const last = sanitize(req.body.last);
-	const email = sanitize(req.body.email);
 
-	if(user && password) {
+	const newUser = {
+		_id: new mongoose.Types.ObjectId(),
+		user: user,
+		password: password,
+	}
+	var err = '';
+	try {
+		const db = client.db();
+		const result = await db.collection('Users').insertOne(newUser);
+	} catch(e) {
+		err = e.toString();
+	}
+	var ret = {error: err};
+	res.status(200).json(ret);
+
+	/*if(user && password) {
 		const newUser = new User({
 			_id: new mongoose.Types.ObjectId(),
 			user: user,
@@ -68,7 +94,7 @@ router.post('/createuser', function(req, res) {
 	} else {
 		res.statusCode = 201;
 		res.json({msg: "no_user_provided"});
-	}
-})
+	} */
+});
 
 module.exports = router;

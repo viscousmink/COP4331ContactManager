@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const router = express.Router();
 const Contact = require('../models/contact');
 const sanitize = require('mongo-sanitize');
+const database = require('../../database.js');
+const MongoClient = require('mongodb').MongoClient;
+const client = new MongoClient(database.URL, {useUnifiedTopology: true});
+client.connect()
 
 /* Possible Post requests
 	allContacts: 
@@ -20,9 +24,12 @@ Status Codes :
 	500: ERROR!
 */
 
-router.post('/allcontacts', function(req, res) {
+router.post('/allcontacts', async(req, res, next) =>
+{
 	const user = sanitize(req.body.user);
-	if(user) {
+
+	var err = '';
+	/* if(user) {
 		Contact.find({user: user}, function(err, documents){
 			if(!err) {
 				res.statusCode = 200;
@@ -37,10 +44,29 @@ router.post('/allcontacts', function(req, res) {
 	} else {
 		res.statusCode = 201;
 		res.json({error: "no_user_provided"});
+	} */
+	if(user) {
+		const db = client.db();
+		const results = await db.collection('Contacts').find({"user": user}).toArray();
+		var _ret= [];
+		for(var i = 0; i<results.length; i++) {
+			_ret.push({
+				first_name: results[i].first_name,
+				last_name: results[i].last_name,
+				phone_number: results[i].phone_number,
+				email: results[i].email,
+				street: results[i].street,
+				city: results[i].city,
+				state: results[i].state
+			})
+		}
+		var ret = {results:_ret, error:err};
+  		res.status(200).json(ret)
 	}
 });
 
-router.post('/addcontact', function(req, res) {
+router.post('/addcontact', async(req, res, next) =>
+{
     const user = sanitize(req.body.user);
     const first_name = sanitize(req.body.first_name);
     const last_name = sanitize(req.body.last_name);
@@ -50,7 +76,7 @@ router.post('/addcontact', function(req, res) {
     const city = sanitize(req.body.city);
     const state = sanitize(req.body.state);
 
-    if(user) {
+    /* if(user) {
     	const contact = new Contact({
     		_id: new mongoose.Types.ObjectId(),
     		user: user,
@@ -74,13 +100,81 @@ router.post('/addcontact', function(req, res) {
     } else {
     	res.statusCode = 201;
     	res.json({error: 'no_user_provided'});
-    }
+    } */
+
+	const contact = {
+		_id: new mongoose.Types.ObjectId(),
+		user: user,
+		first_name: first_name,
+		last_name: last_name,
+		phone_number: phone_number,
+		email: email,
+		street: street,
+		city: city,
+		state: state
+	}
+	var err = '';
+	try {
+		const db = client.db();
+		const result = await db.collection('Contacts').insertOne(contact);
+	} catch(e) {
+		err = e.toString();
+	}
+	var ret = {error: err};
+	res.status(200).json(ret);
+
 });
 
-router.post('/deletecontact', function(req, res) {
+router.post('/deletecontact', async(req, res, next) =>
+{
 	const user = sanitize(req.body.user);
+    const first_name = sanitize(req.body.first_name);
+    const last_name = sanitize(req.body.last_name);
+    const phone_number = sanitize(req.body.phone_number);
+    const email = sanitize(req.body.email);
+    const street = sanitize(req.body.street);
+    const city = sanitize(req.body.city);
+    const state = sanitize(req.body.state);
 
-	if(user) {
+    const contact = {
+		user: user,
+		first_name: first_name,
+		last_name: last_name,
+		phone_number: phone_number,
+		email: email,
+		street: street,
+		city: city,
+		state: state
+	}
+
+	const results = await db.collection('Contacts').find(contact);
+
+	const remContact = {
+		_id: results._id,
+		user: user,
+		first_name: first_name,
+		last_name: last_name,
+		phone_number: phone_number,
+		email: email,
+		street: street,
+		city: city,
+		state: state
+	}
+
+	var err = '';
+
+	try {
+		const db = client.db();
+		const result = await db.collection('Contacts').remove(contact); 
+	} catch(e) {
+		err = e.toString();
+	}
+	var ret = {error: err};
+	res.status(200).json(ret);
+
+
+
+	/* if(user) {
 		Contact.remove({user: user}, function(err) {
 			if(!err) {
 				res.statusCode = 200;
@@ -93,7 +187,7 @@ router.post('/deletecontact', function(req, res) {
 	} else {
 		res.statusCode = 201;
 		res.json({error: 'no_user_provided'})
-	}
+	} */
 })
 
 module.exports = router;
