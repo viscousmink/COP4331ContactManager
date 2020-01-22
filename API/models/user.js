@@ -1,24 +1,12 @@
-//const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-// _id is an implied entry into the schema
-//const userSchema = mongoose.Schema({
-//	user_id: String
-//});
+const userSchema = mongoose.Schema({
+	_id: mongoose.Schema.Types.ObjectID,
+	user: String,
+	password: String,
+	first_name: String,
+	last_name: String,
+	email: String
+})
 
-//const user = mongoose.model('user', userSchema);
-
-//module.exports = user;
-
-class User {
-	constructor() {
-	}
-
-	_createUser(name) {
-		JSON = {
-			"name": name
-		}
-		return JSON
-	}
-}
-
-module.exports = new User()
+module.exports = mongoose.model('User', userSchema);
