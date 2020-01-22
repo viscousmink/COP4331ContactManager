@@ -171,7 +171,7 @@ router.post('/deletecontact', async(req, res, next) =>
 
 	try {
 		const db = client.db();
-		const result = await db.collection('Contacts').remove(contact); 
+		const result = await db.collection('Contacts').remove(remContact); 
 	} catch(e) {
 		err = e.toString();
 	}
