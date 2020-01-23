@@ -3,7 +3,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const database = require('./database.js');
-const Contact = require('./API/models/contact.js');
 
 
 /*mongoose.connect(database.URL, {useNewUrlParser: true, useUnifiedTopology: true}, function(err, db) {
@@ -14,11 +13,19 @@ const Contact = require('./API/models/contact.js');
     }
 }); */
 
-const listener = require('./API/listener.js');
+//const listener = require('./API/listener.js');
 
-listener.get('/*', (req, res) => {
+const app = express();
+app.use(function(req, res, next) {
+    const error = new Error('Not found.');
+    error.status = 404;
+    next(error);
+});
+app.use('/api', require('./API/app.js'));
+
+app.get('/*', (req, res) => {
 	res.sendFile('/frontend/public/index.html', { root: __dirname});
 });
 
 const PORT = process.env.PORT;
-listener.listen(PORT, () => console.log('Wizardous stuff on ' + PORT));
+app.listen(PORT, () => console.log('Wizardous stuff on ' + PORT));

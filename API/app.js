@@ -1,18 +1,36 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
-const Contact = require('../models/contact');
 const sanitize = require('mongo-sanitize');
-const database = require('../../database.js');
+const database = require('../database.js');
+const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const client = new MongoClient(database.URL, {useUnifiedTopology: true});
+
 client.connect(function(err, db) {
 	if (err) {
         console.log('Unable to connect to the server. Please start the server. Error:', err);
     } else {
         console.log('Connected to Server successfully!');
     }
-})
+});
+
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({extended:false}));
+
+router.use((req, res, next) => 
+{
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  );
+  res.setHeader(
+    'Access-Control-Allow-Methods',
+    'GET, POST, PATCH, DELETE, OPTIONS'
+  );
+  next();
+});
 
 /* Possible Post requests
 	allContacts: 
@@ -32,10 +50,11 @@ Status Codes :
 
 router.post('/allcontacts', async(req, res, next) =>
 {
-	/*const user = sanitize(req.body.user);
+	console.log(req);
+	const user = sanitize(req.body.data.user);
 
 	var err = '';
-	if(user) {
+	/*if(user) {
 		Contact.find({user: user}, function(err, documents){
 			if(!err) {
 				res.statusCode = 200;
@@ -71,7 +90,7 @@ router.post('/allcontacts', async(req, res, next) =>
 	} 
 });
 
-router.post('/addcontact', async(req, res, next) =>
+/* router.post('/addcontact/:id', async(req, res, next) =>
 {
     const user = sanitize(req.body.user);
     const first_name = sanitize(req.body.first_name);
@@ -108,7 +127,7 @@ router.post('/addcontact', async(req, res, next) =>
     	res.json({error: 'no_user_provided'});
     } */
 
-	const contact = {
+	/*const contact = {
 		_id: new mongoose.Types.ObjectId(),
 		user: user,
 		first_name: first_name,
@@ -129,7 +148,11 @@ router.post('/addcontact', async(req, res, next) =>
 	var ret = {error: err};
 	res.status(200).json(ret);
 
-});
+}); */
+router.post('/addcontact'), async(req, res, next) => {
+	console.log('got here');
+	req.send({type: "POST"});
+}
 
 router.post('/deletecontact', async(req, res, next) =>
 {
@@ -195,5 +218,80 @@ router.post('/deletecontact', async(req, res, next) =>
 		res.json({error: 'no_user_provided'})
 	} */
 })
+
+router.post('/login', async(req, res, next) =>
+{
+	const user = sanitize(req.body.user_name);
+	const password = sanitize(req.body.password);
+
+	/*if(user && password) {
+		User.findOne({user: user, password: password}).exec().then(function(document) {
+			console.log(document);
+			if(document) {
+				res.statusCode = 200;
+				res.json({document})
+			} else {
+				res.statusCode = 202;
+				res.json({msg: "document_not_found"});
+			}
+		});
+	} else {
+		res.statusCode = 201;
+		res.json({msg: "no_user_provided"});
+	} */
+
+	const db = client.db();
+	const results = await db.collection('Users').find({"user": user, "password": password}).toArray();
+
+	//IMPLEMENT
+	//IMPLEMENT
+	//IMPLEMENT
+
+});
+
+router.post('/createuser', async(req, res, next) => 
+{
+	const user = sanitize(req.body.user);
+	const password = sanitize(req.body.password);
+
+	const newUser = {
+		_id: new mongoose.Types.ObjectId(),
+		user: user,
+		password: password,
+	}
+	var err = '';
+	try {
+		const db = client.db();
+		const result = await db.collection('Users').insertOne(newUser);
+	} catch(e) {
+		err = e.toString();
+	}
+	var ret = {error: err};
+	res.status(200).json(ret);
+
+	/*if(user && password) {
+		const newUser = new User({
+			_id: new mongoose.Types.ObjectId(),
+			user: user,
+			password: password,
+			first_name: first,
+			last_name: last,
+			email: email
+		});
+
+		user.save().then(function(result) {
+			console.log(result);
+			res.statusCode = 200;
+			res.json({msg: "success"});
+		}).catch(function(err) {
+			console.log(err);
+			res.statusCode = 500;
+			res.json({msg: "failure"});
+		});
+	} else {
+		res.statusCode = 201;
+		res.json({msg: "no_user_provided"});
+	}*/
+});
 
 module.exports = router;
