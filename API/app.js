@@ -58,22 +58,6 @@ router.post('/allcontacts', async(req, res, next) =>
 	const user = sanitize(req.body.user);
 
 	var err = '';
-	/*if(user) {
-		Contact.find({user: user}, function(err, documents){
-			if(!err) {
-				res.statusCode = 200;
-				res.json({
-					return: documents
-				});
-			} else {
-				res.statusCode = 500;
-				res.json({msg: err})
-			}
-		});
-	} else {
-		res.statusCode = 201;
-		res.json({error: "no_user_provided"});
-	} */
 	if (user) {
 		const db = client.db();
 		const results = await db.collection('Contacts').find({"user": user}).toArray();
@@ -174,45 +158,12 @@ router.post('/deletecontact', async(req, res, next) =>
 	}
 	var ret = {error: err};
 	res.status(200).json(ret);
-
-
-
-	/*if(user) {
-		Contact.remove({user: user}, function(err) {
-			if(!err) {
-				res.statusCode = 200;
-				res.json({msg: 'contact_deleted'});
-			} else {
-				res.statusCode = 500;
-				res.json({msg: err});
-			}
-		})
-	} else {
-		res.statusCode = 201;
-		res.json({error: 'no_user_provided'})
-	} */
 })
 
 router.post('/login', async(req, res, next) =>
 {
 	const user = sanitize(req.body.user_name);
 	const password = sanitize(req.body.password);
-
-	/*if(user && password) {
-		User.findOne({user: user, password: password}).exec().then(function(document) {
-			console.log(document);
-			if(document) {
-				res.statusCode = 200;
-				res.json({document})
-			} else {
-				res.statusCode = 202;
-				res.json({msg: "document_not_found"});
-			}
-		});
-	} else {
-		res.statusCode = 201;
-		res.json({msg: "no_user_provided"});
-	} */
 
 	const db = client.db();
 	const results = await db.collection('Users').find({"user": user, "password": password}).toArray();
