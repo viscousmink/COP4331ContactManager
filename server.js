@@ -16,11 +16,14 @@ const database = require('./database.js');
 //const listener = require('./API/listener.js');
 
 const app = express();
-app.use(function(req, res, next) {
+/*app.use(function(req, res, next) {
     const error = new Error('Not found.');
     error.status = 404;
     next(error);
-});
+}); */
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:false}));
 app.use('/api', require('./API/app.js'));
 
 app.get('/*', (req, res) => {

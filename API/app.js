@@ -39,6 +39,10 @@ router.use((req, res, next) =>
 		-- adds a contact to the user's list
 	deleteContact:
 		-- deletes a contact to the user's list
+	createuser:
+		--
+	login:
+		--
 */
 /*
 Status Codes :
@@ -50,8 +54,8 @@ Status Codes :
 
 router.post('/allcontacts', async(req, res, next) =>
 {
-	console.log(req);
-	const user = sanitize(req.body.data.user);
+	console.log(req.body.user);
+	const user = sanitize(req.body.user);
 
 	var err = '';
 	/*if(user) {
@@ -70,7 +74,7 @@ router.post('/allcontacts', async(req, res, next) =>
 		res.statusCode = 201;
 		res.json({error: "no_user_provided"});
 	} */
-	if(user) {
+	if (user) {
 		const db = client.db();
 		const results = await db.collection('Contacts').find({"user": user}).toArray();
 		var _ret= [];
@@ -90,7 +94,7 @@ router.post('/allcontacts', async(req, res, next) =>
 	} 
 });
 
-/* router.post('/addcontact/:id', async(req, res, next) =>
+ router.post('/addcontact/', async(req, res, next) =>
 {
     const user = sanitize(req.body.user);
     const first_name = sanitize(req.body.first_name);
@@ -101,33 +105,7 @@ router.post('/allcontacts', async(req, res, next) =>
     const city = sanitize(req.body.city);
     const state = sanitize(req.body.state);
 
-    /*if(user) {
-    	const contact = new Contact({
-    		_id: new mongoose.Types.ObjectId(),
-    		user: user,
-    		first_name: first_name,
-    		last_name: last_name,
-    		phone_number: phone_number,
-    		email: email,
-    		street: street,
-    		city: city,
-    		state: state
-    	});
-    	contact.save().then(function(result) {
-    		console.log(result);
-    		res.statusCode = 200;
-    		res.json({addedContact: contact});
-    	}).catch(function(err) {
-    		console.log(err);
-    		res.statusCode = 500
-    		res.json({msg: err});
-    	});
-    } else {
-    	res.statusCode = 201;
-    	res.json({error: 'no_user_provided'});
-    } */
-
-	/*const contact = {
+	const contact = {
 		_id: new mongoose.Types.ObjectId(),
 		user: user,
 		first_name: first_name,
@@ -148,11 +126,7 @@ router.post('/allcontacts', async(req, res, next) =>
 	var ret = {error: err};
 	res.status(200).json(ret);
 
-}); */
-router.post('/addcontact'), async(req, res, next) => {
-	console.log('got here');
-	req.send({type: "POST"});
-}
+}); 
 
 router.post('/deletecontact', async(req, res, next) =>
 {
@@ -176,6 +150,7 @@ router.post('/deletecontact', async(req, res, next) =>
 		state: state
 	}
 
+	const db = client.db();
 	const results = await db.collection('Contacts').find(contact);
 
 	const remContact = {
@@ -193,8 +168,7 @@ router.post('/deletecontact', async(req, res, next) =>
 	var err = '';
 
 	try {
-		const db = client.db();
-		const result = await db.collection('Contacts').remove(remContact); 
+		const result = await db.collection('Contacts').deleteOne(remContact); 
 	} catch(e) {
 		err = e.toString();
 	}
@@ -268,30 +242,6 @@ router.post('/createuser', async(req, res, next) =>
 	}
 	var ret = {error: err};
 	res.status(200).json(ret);
-
-	/*if(user && password) {
-		const newUser = new User({
-			_id: new mongoose.Types.ObjectId(),
-			user: user,
-			password: password,
-			first_name: first,
-			last_name: last,
-			email: email
-		});
-
-		user.save().then(function(result) {
-			console.log(result);
-			res.statusCode = 200;
-			res.json({msg: "success"});
-		}).catch(function(err) {
-			console.log(err);
-			res.statusCode = 500;
-			res.json({msg: "failure"});
-		});
-	} else {
-		res.statusCode = 201;
-		res.json({msg: "no_user_provided"});
-	}*/
 });
 
 module.exports = router;
