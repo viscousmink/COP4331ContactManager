@@ -44,3 +44,8 @@ code {
   padding: 1em;
   border-radius: 1em;
 } */
+
+.access-body {
+  display: flex;
+  margin: 1rem;
+}

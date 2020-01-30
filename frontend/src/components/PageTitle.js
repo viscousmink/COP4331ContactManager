@@ -4,7 +4,8 @@ function PageTitle()
 {
     return(
         <div className="page-header">
-            <h1 id="title">Contact Manager</h1>
+            <h1 id="title">MyNetwork</h1>
+            <h4>Your network is your net worth.</h4>
         </div> 
     );
 };

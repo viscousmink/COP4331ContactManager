@@ -2,6 +2,7 @@ import React from 'react';
 
 import PageTitle from '../components/PageTitle';
 import LoggedInName from '../components/LoggedInName';
+import AccessUI from '../components/AccessUI';
 
 
 const AccessContactsPage = () =>
@@ -10,6 +11,7 @@ const AccessContactsPage = () =>
         <div>
             <PageTitle />
             <LoggedInName />
+            <AccessUI />
         </div>
     );
 }

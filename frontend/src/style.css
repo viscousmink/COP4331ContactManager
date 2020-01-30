@@ -17,3 +17,9 @@
     justify-content: center;
     align-items: center;
 }
+
+.access-body {
+    display: flex;
+    margin: 1rem;
+    justify-content: center;
+  }
