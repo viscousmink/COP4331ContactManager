@@ -11,3 +11,5 @@ function PageTitle()
 };
 
 export default PageTitle;
+
+// style={{fontWeight: "bold"}}
