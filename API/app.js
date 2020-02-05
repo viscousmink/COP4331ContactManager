@@ -135,27 +135,12 @@ router.post('/deletecontact', async(req, res, next) =>
 	}
 
 	const db = client.db();
-	const results = await db.collection('Contacts').find(contact);
-
-	const remContact = {
-		_id: results._id,
-		user: user,
-		first_name: first_name,
-		last_name: last_name,
-		phone_number: phone_number,
-		email: email,
-		street: street,
-		city: city,
-		state: state
+	const results = await db.collection('Contacts').deleteOne(contact);
+	if(!results) {
+		err = 'document_not_found';
 	}
 
 	var err = '';
-
-	try {
-		const result = await db.collection('Contacts').deleteOne(remContact); 
-	} catch(e) {
-		err = e.toString();
-	}
 	var ret = {error: err};
 	res.status(200).json(ret);
 })
