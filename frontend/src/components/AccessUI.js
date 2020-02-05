@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Button, Accordion, Card } from 'react-bootstrap';
 
 function AccessUI(props)
 {
@@ -78,16 +79,29 @@ function AccessUI(props)
         }
     };
 
+
     return(
-        <div>
-            <input type="text" placeholder="Contact to search for..." ref={(c) => search = c} />
+        <div className="access-body">
+            <Accordion defaultActiveKey="0">
+                <Card>
+                    <Card.Header>
+                        <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                            Arthur Henry
+                        </Accordion.Toggle>
+                    </Card.Header>
+                    <Accordion.Collapse eventKey="0">
+                        <Card.Body>ph: (786) 985-4954</Card.Body>
+                    </Accordion.Collapse>
+                </Card>
+            </Accordion>
+            {/* <input type="text" placeholder="Contact to search for..." ref={(c) => search = c} />
             <button type="button" class="buttons" onClick={searchContact}>Search Contact</button><br />
             <span>{searchResults}</span>
             <p>{contactList}</p>
 
             <input type="text" placeholder="Contact to add..." ref={(c) => contact = c} />
             <button type="button" class="buttons" onClick={addContact}>Add Contact</button>
-            <span>{message}</span>
+            <span>{message}</span> */}
         </div>
     );
 }
