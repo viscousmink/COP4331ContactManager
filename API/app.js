@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const client = new MongoClient(database.URL, {useUnifiedTopology: true});
 
+//connecting to the server
 client.connect(function(err, db) {
 	if (err) {
         console.log('Unable to connect to the server. Please start the server. Error:', err);
@@ -32,18 +33,29 @@ router.use((req, res, next) =>
   next();
 });
 
-/* Possible Post requests
+/* Possible requests -- 
 	allContacts: 
 		-- returns all the contacts of the user
+		
 	addContact:
 		-- adds a contact to the user's list
+
 	deleteContact:
 		-- deletes a contact to the user's list
+
 	createuser:
-		--
+		-- creates a new user
+
 	login:
-		--
+		-- login a user based on the entered credentials
+
+	? updateContact:
+		-- updates a contact that is already created on the user's list
+
+	? searchContacts:
+		--returns the contacts that include any characters they are searching for
 */
+
 /*
 Status Codes :
 	200: complete success
@@ -52,7 +64,8 @@ Status Codes :
 	500: ERROR!
 */
 
-router.post('/allcontacts', async(req, res, next) =>
+//send a get request to return all contacts
+router.get('/allcontacts', async(req, res, next) =>
 {
 	console.log(req.body.user);
 	const user = sanitize(req.body.user);
@@ -78,6 +91,7 @@ router.post('/allcontacts', async(req, res, next) =>
 	} 
 });
 
+//send a post request to create a new contact
  router.post('/addcontact/', async(req, res, next) =>
 {
     const user = sanitize(req.body.user);
@@ -112,7 +126,8 @@ router.post('/allcontacts', async(req, res, next) =>
 
 }); 
 
-router.post('/deletecontact', async(req, res, next) =>
+//send a delete request to delete a contact
+router.delete('/deletecontact', async(req, res, next) =>
 {
 	const user = sanitize(req.body.user);
     const first_name = sanitize(req.body.first_name);
@@ -145,6 +160,7 @@ router.post('/deletecontact', async(req, res, next) =>
 	res.status(200).json(ret);
 })
 
+//need to implement Login:
 router.post('/login', async(req, res, next) =>
 {
 	const user = sanitize(req.body.user_name);
@@ -159,6 +175,7 @@ router.post('/login', async(req, res, next) =>
 
 });
 
+//send a post request to create a new user
 router.post('/createuser', async(req, res, next) => 
 {
 	const user = sanitize(req.body.user);
@@ -179,5 +196,19 @@ router.post('/createuser', async(req, res, next) =>
 	var ret = {error: err};
 	res.status(200).json(ret);
 });
+
+/*
+//implement updateContact using put request 
+router.put('/updateContact', async(req, res, next) =>
+{
+
+}
+
+//implement searchContact using post request
+router.post('/searchContact', async(req, res, next) =>
+{
+
+}
+*/
 
 module.exports = router;
