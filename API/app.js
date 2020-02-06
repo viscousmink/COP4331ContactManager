@@ -160,19 +160,28 @@ router.delete('/deletecontact', async(req, res, next) =>
 	res.status(200).json(ret);
 })
 
-//need to implement Login:
+//need to check/test implementation of Login**
 router.post('/login', async(req, res, next) =>
 {
-	const user = sanitize(req.body.user_name);
+	const user = sanitize(req.body.user);
 	const password = sanitize(req.body.password);
 
 	const db = client.db();
 	const results = await db.collection('Users').find({"user": user, "password": password}).toArray();
 
-	//IMPLEMENT
-	//IMPLEMENT
-	//IMPLEMENT
+	var id = -1;
+	var firstName = '';
+	var lastName = '';
 
+	if(results.length > 0)
+	{
+		id = results[0]._id;
+		firstName = results[0].first_name;
+		lastName = results[0].last_name;
+	}
+
+	var ret = {_id:id, first_name:firstName, last_name,lastName, error:''};
+	res.status(200).json(ret);
 });
 
 //send a post request to create a new user
