@@ -180,7 +180,7 @@ router.post('/login', async(req, res, next) =>
 		lastName = results[0].last_name;
 	}
 
-	var ret = {_id:id, first_name:firstName, last_name,lastName, error:''};
+	var ret = {_id:id, first_name:firstName, last_name:lastName, error:''};
 	res.status(200).json(ret);
 });
 
