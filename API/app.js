@@ -1,11 +1,13 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const router = express.Router();
-const sanitize = require('mongo-sanitize');
-const database = require('../database.js');
-const bodyParser = require('body-parser');
+const express     = require('express');
+const mongoose    = require('mongoose');
+const router      = express.Router();
+const jwt         = require('jsonwebtoken');
+const bcrypt      = require('bcryptjs');
+const sanitize    = require('mongo-sanitize');
+const database    = require('../database.js');
+const bodyParser  = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
-const client = new MongoClient(database.URL, {useUnifiedTopology: true});
+const client      = new MongoClient(database.URL, {useUnifiedTopology: true});
 
 //connecting to the server
 client.connect(function(err, db) {
@@ -167,20 +169,21 @@ router.post('/login', async(req, res, next) =>
 	const password = sanitize(req.body.password);
 
 	const db = client.db();
-	const results = await db.collection('Users').find({"user": user, "password": password}).toArray();
+	const result = await db.collection('Users').findOne({"user": user})
+	var err = '';
 
-	var id = -1;
-	var firstName = '';
-	var lastName = '';
-
-	if(results.length > 0)
-	{
-		id = results[0]._id;
-		firstName = results[0].first_name;
-		lastName = results[0].last_name;
+	//console.log(result.password);
+	if(bcrypt.compareSync(password, result.password) == true) {
+		err = '';
+	} else {
+		err = 'not_correct_password';
 	}
 
-	var ret = {_id:id, first_name:firstName, last_name:lastName, error:''};
+	var ret = {
+		error: err
+	}
+
+
 	res.status(200).json(ret);
 });
 
@@ -190,10 +193,13 @@ router.post('/createuser', async(req, res, next) =>
 	const user = sanitize(req.body.user);
 	const password = sanitize(req.body.password);
 
+	var salt = bcrypt.genSaltSync(10);
+	var hash = bcrypt.hashSync(password, salt);
+
 	const newUser = {
 		_id: new mongoose.Types.ObjectId(),
 		user: user,
-		password: password,
+		password: hash
 	}
 	var err = '';
 	try {
@@ -204,6 +210,7 @@ router.post('/createuser', async(req, res, next) =>
 	}
 	var ret = {error: err};
 	res.status(200).json(ret);
+
 });
 
 /*
