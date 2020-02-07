@@ -56,6 +56,8 @@ router.use((req, res, next) =>
 
 	? searchContacts:
 		--returns the contacts that include any characters they are searching for
+		- update, were gonna just return all contacts to front end to be sorted there
+
 */
 
 /*
@@ -213,18 +215,74 @@ router.post('/createuser', async(req, res, next) =>
 
 });
 
-/*
+
 //implement updateContact using put request 
-router.put('/updateContact', async(req, res, next) =>
+router.put('/updatecontact', async(req, res, next) =>
 {
+	//the user who's contact we are updating
+	const user = sanitize(req.body.filter.user);
 
-}
+	//filter is the original contact's info that we are going to update
+    const first_name = sanitize(req.body.filter.first_name);
+    const last_name = sanitize(req.body.filter.last_name);
+    const phone_number = sanitize(req.body.filter.phone_number);
+    const email = sanitize(req.body.filter.email);
+	const street = sanitize(req.body.filter.street);
+	const city = sanitize(req.body.filter.city);
+	const state = sanitize(req.body.filter.state);
+	
+	//old stuff JSON package
+	const old_stuff = {
+		user: user,
+		first_name: first_name,
+		last_name: last_name,
+		phone_number: phone_number,
+		email: email,
+		street: street,
+		city: city,
+		state: state
+	} 
 
+	//update will be the contact's updated first,last,phone,email,street,city,state
+	const new_first_name = sanitize(req.body.update.first_name);
+    const new_last_name = sanitize(req.body.update.last_name);
+    const new_phone_number = sanitize(req.body.update.phone_number);
+    const new_email = sanitize(req.body.update.email);
+    const new_street = sanitize(req.body.update.street);
+	const new_city = sanitize(req.body.update.city);
+    const new_state = sanitize(req.body.update.state);
+
+	//const test = {user: updated_user};
+	//console.log(test);
+
+	//updated contact info's JSON package
+	const update = {
+		$set : {
+		user: user,
+		first_name: new_first_name,
+		last_name: new_last_name,
+		phone_number: new_phone_number,
+		email: new_email,
+		street: new_street,
+		city: new_city,
+		state: new_state }
+	} 
+
+	const db = client.db();
+	const result = await db.collection('Contacts').updateOne(req.body.filter, update, {upsert: true});
+
+	var ret = {error: ''};
+
+	res.status(200).json(ret);
+});
+
+/*
 //implement searchContact using post request
 router.post('/searchContact', async(req, res, next) =>
 {
-
+	//incoming 
 }
 */
+
 
 module.exports = router;
