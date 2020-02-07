@@ -227,7 +227,7 @@ router.put('/updatecontact', async(req, res, next) =>
     const last_name = sanitize(req.body.filter.last_name);
     const phone_number = sanitize(req.body.filter.phone_number);
     const email = sanitize(req.body.filter.email);
-    const street = sanitize(req.body.filter.street);
+	const street = sanitize(req.body.filter.street);
 	const city = sanitize(req.body.filter.city);
 	const state = sanitize(req.body.filter.state);
 	
@@ -257,6 +257,7 @@ router.put('/updatecontact', async(req, res, next) =>
 
 	//updated contact info's JSON package
 	const update = {
+		$set : {
 		user: user,
 		first_name: new_first_name,
 		last_name: new_last_name,
@@ -264,11 +265,11 @@ router.put('/updatecontact', async(req, res, next) =>
 		email: new_email,
 		street: new_street,
 		city: new_city,
-		state: new_state
+		state: new_state }
 	} 
 
 	const db = client.db();
-	const result = await db.collection('Contacts').updateOne(old_stuff, update);
+	const result = await db.collection('Contacts').updateOne(req.body.filter, update, {upsert: true});
 
 	var ret = {error: ''};
 
