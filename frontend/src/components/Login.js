@@ -1,77 +1,46 @@
-import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { FaUser, FaArrowRight } from "react-icons/fa";
+import { GoKey } from "react-icons/go";
+
 
 function Login(props)
 {
     const history = useHistory();
-    var loginName;
-    var loginPassword;
 
-    const [message, setMessage] = useState('');
-
-    const doLogin = async event =>
+    const register = async event =>
     {
-        // event.preventDefault();
+        history.push('/register');
+    };
 
-        // var js = '{"login":"'
-        //     + loginName.value
-        //     + '","password:"'
-        //     + loginPassword.value + '"}';
-
-        // try
-        // {
-        //     const response = await fetch('http://localhost:5000/api/login',
-        //         {method:'POST',body:js,header:{'Content-Type': 'application/json'}});
-
-        //     var res = JSON.parse(await response.text());
-
-        //     if (res.id <= 0)
-        //     {
-        //         setMessage('Username and or password are incorrect.');
-        //     }
-        //     else
-        //     {
-        //         var user = {firstName:res.firstName,lastName:res.lastName,id:res.id}
-        //         localStorage.setItem('user_data', JSON.stringify(user));
-
-        //         setMessage('');
-        //         window.location.href = '/access';
-        //     }
-        // }
-        // catch(e)
-        // {
-        //     alert(e.toString());
-        //     return;
-        // }
-        history.push('/access');
+    const login = async event =>
+    {
+        // alert("Successfully logged in!")
+        history.push('/dashboard');
     };
 
     return(
-        <div>
-            <Form className="login-body" onSubmit={doLogin}>
-                <Form.Group>
-                    <Form.Label>Username:</Form.Label>
-                    <Form.Control type="text" placeholder="JohnDoe123" ref={(c) => loginName = c} style={{width: "20rem"}} />
-                </Form.Group>
-
-                <Form.Group>
-                    <Form.Label>Password:</Form.Label>
-                    <Form.Control type="password" placeholder="Password" ref={(c) => loginPassword = c} style={{width: "20rem"}} />
-                </Form.Group>
-
-                <Button variant="primary" type="submit"  style={{width: "10rem"}} onClick={doLogin}>
-                    Sign In
-                </Button>
-                
-                {/* Fix this later with custom css. */}
-                {/* <Form.Text className="text-muted">
-                    <a href="#">Sign up</a>
-                </Form.Text> */}
-            </Form>
-            <span>{message}</span>
+        <div className="login-box">
+            <div className="box-header">
+                <h1>MyNetwork</h1>
+                <hr />
+                <p style={{'color' : 'grey'}}>Your network is your net worth.</p>
+            </div>
+            {/* The two form attributes allow us to use the enter key to submit information. */}
+            <form action="" method="get" onSubmit={login}>
+                <div className="login-item">
+                    <FaUser />
+                    <input type="text" className="input-field" placeholder="Username" required/><br />
+                </div>
+                <div className="login-item">
+                    <GoKey />
+                    <input type="password" className="input-field" placeholder="Password" required/><br />
+                </div>
+                <button type="submit" className="submit-button"><FaArrowRight /></button><br/>
+                <button className="button-link" onClick={register}>New user? Register here.</button>
+            </form>
         </div>
     );
-};
+}
 
 export default Login;
