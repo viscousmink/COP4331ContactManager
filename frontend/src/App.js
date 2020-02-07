@@ -1,15 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
-// import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import './App.css';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 import LoginPage from './pages/LoginPage';
-import AccessContactsPage from './pages/AccessContactsPage';
-
-
-import './App.css';
-import './style.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import RegisterPage from './pages/RegisterPage';
+import DashboardPage from './pages/DashboardPage';
 
 function App() {
   return (
@@ -18,8 +13,11 @@ function App() {
         <Route path="/" exact>
           <LoginPage />
         </Route>
-        <Route path="/access" exact>
-          <AccessContactsPage />
+        <Route path="/register">
+          <RegisterPage />
+        </Route>
+        <Route path="/dashboard">
+          <DashboardPage />
         </Route>
         <Redirect to='/' />
       </Switch>

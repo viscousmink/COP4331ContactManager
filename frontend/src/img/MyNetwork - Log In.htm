@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://localhost:3000/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <link rel="icon" href="http://localhost:3000/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="Web site created using create-react-app">
+    <link rel="apple-touch-icon" href="http://localhost:3000/logo192.png">
+    <link href="./MyNetwork - Log In_files/css" rel="stylesheet">
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="http://localhost:3000/manifest.json">
+    <!--
+      Notice the use of  in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>MyNetwork - Log In</title>
+  <style>body {
+  margin: 0;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Below this line is the CSS code that I wrote */
+
+* {
+  font-family: 'Archivo', sans-serif;
+}
+
+/* Using flexbox to position our information and adding a background image. */
+body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(/static/media/palm-tree.6645bf7a.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+hr {
+  text-decoration: none;
+  border: .25px solid black;
+}
+
+input {
+  font-size: small;
+  transition: width 0.4s ease-in;
+}
+
+input:focus {
+  width: 75%;
+}
+
+
+input:focus, textarea:focus, select.focus {
+  outline: none;
+}
+
+.login-box {
+  width: 15rem;
+  padding: 2rem 5rem;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 1.0);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.login-field {
+  border: none;
+  border-bottom: 1px solid black;
+  width: 50%;
+  margin: 0 .5rem;
+  padding: .25rem;
+}
+
+.user-login {
+  margin: 1rem 0;
+}
+
+.key-login {
+  margin: 1rem 0;
+}
+
+/* For submit-type buttons on a page. */
+.submit-button {
+  border: none;
+  font-size: medium;
+  background-color: white;
+  padding: .5rem;
+}
+
+.submit-button:hover {
+  color: grey;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+/* For the new user register button link. */
+.button-link {
+  border: 0;
+  padding: .5rem;
+  color: grey;
+  background-color: transparent;
+}
+
+.button-link:hover {
+  color: black;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: 0.2s;
+}
+
+/* For the input fields. */
+
+.input-info {
+  border: 1px solid grey;
+  border-radius: 3px;
+  width: 85%;
+  padding: .5rem;
+}
+
+/* For the register page. */
+
+.register-box {
+  padding: 4rem;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/*
+  For the dashboard where contacts will be displayed. 
+  We don't really need to create a new div container but update the information shown in the card at a time.
+*/
+
+.dashboard-box {
+  display: flex;
+  width: 50rem;
+  padding: 4rem;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.contact-list {
+  flex: 1 1;
+  border: 1px solid black;
+  padding: 1rem;
+  margin: 1rem;
+  text-align: left;
+}
+
+.contact-info {
+  flex: 2 1;
+  border: 1px solid black;
+  padding: 1rem;
+  margin: 1rem;
+  text-align: left;
+}
+</style><style>.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+</style><script charset="utf-8" src="./MyNetwork - Log In_files/main.b77e374a7ac921b6fa31.hot-update.js"></script></head>
+  <body data-gr-c-s-loaded="true">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"><div><div class="login-box"><div><h1>MyNetwork</h1><p>Your network is your net worth.</p></div><form action="http://localhost:3000/" method="get"><div class="user-login"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"></path></svg><input type="text" class="login-field" placeholder="Username" required=""><br></div><div class="key-login"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 14 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.83 2.17C12.08 1.42 11.14 1.03 10 1c-1.13.03-2.08.42-2.83 1.17S6.04 3.86 6.01 5c0 .3.03.59.09.89L0 12v1l1 1h2l1-1v-1h1v-1h1v-1h2l1.09-1.11c.3.08.59.11.91.11 1.14-.03 2.08-.42 2.83-1.17S13.97 6.14 14 5c-.03-1.14-.42-2.08-1.17-2.83zM11 5.38c-.77 0-1.38-.61-1.38-1.38 0-.77.61-1.38 1.38-1.38.77 0 1.38.61 1.38 1.38 0 .77-.61 1.38-1.38 1.38z"></path></svg><input type="password" class="login-field" placeholder="Password" required=""><br></div><button type="submit" class="submit-button"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path></svg></button><br><button class="button-link">New user? Register here.</button></form></div></div></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  <script src="./MyNetwork - Log In_files/bundle.js"></script><script src="./MyNetwork - Log In_files/0.chunk.js"></script><script src="./MyNetwork - Log In_files/main.chunk.js"></script><script src="./MyNetwork - Log In_files/main.542427314312f3748992.hot-update.js"></script>
+
+</body></html>
