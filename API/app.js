@@ -1,11 +1,13 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const router = express.Router();
-const sanitize = require('mongo-sanitize');
-const database = require('../database.js');
-const bodyParser = require('body-parser');
+const express     = require('express');
+const mongoose    = require('mongoose');
+const router      = express.Router();
+const jwt         = require('jsonwebtoken');
+const bcrypt      = require('bcryptjs');
+const sanitize    = require('mongo-sanitize');
+const database    = require('../database.js');
+const bodyParser  = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
-const client = new MongoClient(database.URL, {useUnifiedTopology: true});
+const client      = new MongoClient(database.URL, {useUnifiedTopology: true});
 
 //connecting to the server
 client.connect(function(err, db) {
@@ -54,6 +56,8 @@ router.use((req, res, next) =>
 
 	? searchContacts:
 		--returns the contacts that include any characters they are searching for
+		- update, were gonna just return all contacts to front end to be sorted there
+
 */
 
 /*
@@ -160,19 +164,29 @@ router.delete('/deletecontact', async(req, res, next) =>
 	res.status(200).json(ret);
 })
 
-//need to implement Login:
+//need to check/test implementation of Login**
 router.post('/login', async(req, res, next) =>
 {
-	const user = sanitize(req.body.user_name);
+	const user = sanitize(req.body.user);
 	const password = sanitize(req.body.password);
 
 	const db = client.db();
-	const results = await db.collection('Users').find({"user": user, "password": password}).toArray();
+	const result = await db.collection('Users').findOne({"user": user})
+	var err = '';
 
-	//IMPLEMENT
-	//IMPLEMENT
-	//IMPLEMENT
+	//console.log(result.password);
+	if(bcrypt.compareSync(password, result.password) == true) {
+		err = '';
+	} else {
+		err = 'not_correct_password';
+	}
 
+	var ret = {
+		error: err
+	}
+
+
+	res.status(200).json(ret);
 });
 
 //send a post request to create a new user
@@ -181,10 +195,13 @@ router.post('/createuser', async(req, res, next) =>
 	const user = sanitize(req.body.user);
 	const password = sanitize(req.body.password);
 
+	var salt = bcrypt.genSaltSync(10);
+	var hash = bcrypt.hashSync(password, salt);
+
 	const newUser = {
 		_id: new mongoose.Types.ObjectId(),
 		user: user,
-		password: password,
+		password: hash
 	}
 	var err = '';
 	try {
@@ -195,20 +212,77 @@ router.post('/createuser', async(req, res, next) =>
 	}
 	var ret = {error: err};
 	res.status(200).json(ret);
+
+});
+
+
+//implement updateContact using put request 
+router.put('/updatecontact', async(req, res, next) =>
+{
+	//the user who's contact we are updating
+	const user = sanitize(req.body.filter.user);
+
+	//filter is the original contact's info that we are going to update
+    const first_name = sanitize(req.body.filter.first_name);
+    const last_name = sanitize(req.body.filter.last_name);
+    const phone_number = sanitize(req.body.filter.phone_number);
+    const email = sanitize(req.body.filter.email);
+	const street = sanitize(req.body.filter.street);
+	const city = sanitize(req.body.filter.city);
+	const state = sanitize(req.body.filter.state);
+	
+	//old stuff JSON package
+	const old_stuff = {
+		user: user,
+		first_name: first_name,
+		last_name: last_name,
+		phone_number: phone_number,
+		email: email,
+		street: street,
+		city: city,
+		state: state
+	} 
+
+	//update will be the contact's updated first,last,phone,email,street,city,state
+	const new_first_name = sanitize(req.body.update.first_name);
+    const new_last_name = sanitize(req.body.update.last_name);
+    const new_phone_number = sanitize(req.body.update.phone_number);
+    const new_email = sanitize(req.body.update.email);
+    const new_street = sanitize(req.body.update.street);
+	const new_city = sanitize(req.body.update.city);
+    const new_state = sanitize(req.body.update.state);
+
+	//const test = {user: updated_user};
+	//console.log(test);
+
+	//updated contact info's JSON package
+	const update = {
+		$set : {
+		user: user,
+		first_name: new_first_name,
+		last_name: new_last_name,
+		phone_number: new_phone_number,
+		email: new_email,
+		street: new_street,
+		city: new_city,
+		state: new_state }
+	} 
+
+	const db = client.db();
+	const result = await db.collection('Contacts').updateOne(req.body.filter, update, {upsert: true});
+
+	var ret = {error: ''};
+
+	res.status(200).json(ret);
 });
 
 /*
-//implement updateContact using put request 
-router.put('/updateContact', async(req, res, next) =>
-{
-
-}
-
 //implement searchContact using post request
 router.post('/searchContact', async(req, res, next) =>
 {
-
+	//incoming 
 }
 */
+
 
 module.exports = router;
