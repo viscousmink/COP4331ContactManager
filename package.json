@@ -4,8 +4,7 @@
 	"main": "server.js",
 	"license": "MIT",
 	"scripts": {
-		"start": "node server",
-		"heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+		"start": "node server.js"
 	},
 	"dependencies": {
 		"@azure/cosmos": "^3.5.3",
