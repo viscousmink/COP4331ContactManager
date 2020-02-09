@@ -1,8 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-// const mongoose = require('mongoose');
-// const database = require('./database.js');
+const mongoose = require('mongoose');
+const database = require('./database.js');
 const path = require('path');
 
 const app = express();

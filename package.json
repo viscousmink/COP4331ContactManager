@@ -5,6 +5,7 @@
 	"license": "MIT",
 	"scripts": {
 		"start": "node server.js",
+		"server": "nodemon server.js",
 		"heroku-postbuild": "cd frontend && npm install && npm run build"
 	},
 	"dependencies": {
@@ -19,7 +20,9 @@
 		"mongo-sanitize": "^1.0.1",
 		"mongodb": "^3.5.2",
 		"mongoose": "^5.8.9",
+		"nodemon": "^2.0.2",
 		"toidentifier": "^1.0.0",
-		"util-deprecate": "^1.0.2"
+		"util-deprecate": "^1.0.2",
+		"webpack": "^4.41.5"
 	}
 }
