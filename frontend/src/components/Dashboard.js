@@ -25,11 +25,14 @@ function Dashboard(props) {
 		// console.log(js);
 
 		try {
-			const response = await fetch('http://localhost:8000/api/allcontacts', {
-				method: 'POST',
-				body: js,
-				headers: { 'Content-Type': 'application/json' }
-			});
+			const response = await fetch(
+				'https://my-network-ucf.herokuapp.com/api/allcontacts',
+				{
+					method: 'POST',
+					body: js,
+					headers: { 'Content-Type': 'application/json' }
+				}
+			);
 
 			let res = JSON.parse(await response.text());
 

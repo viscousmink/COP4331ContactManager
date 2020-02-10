@@ -22,11 +22,14 @@ function Login(props) {
 		console.log(js);
 
 		try {
-			const response = await fetch('http://localhost:8000/api/login', {
-				method: 'POST',
-				body: js,
-				headers: { 'Content-Type': 'application/json' }
-			});
+			const response = await fetch(
+				'https://my-network-ucf.herokuapp.com/api/login',
+				{
+					method: 'POST',
+					body: js,
+					headers: { 'Content-Type': 'application/json' }
+				}
+			);
 
 			var res = JSON.parse(await response.text());
 			console.log(res);
