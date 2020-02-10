@@ -1,11 +1,13 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
-import { FaUser, FaArrowRight } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { useHistory, Redirect } from 'react-router-dom';
+import { FaUser, FaArrowRight, FaRegWindowRestore } from 'react-icons/fa';
 import { GoKey } from 'react-icons/go';
 
 function Login(props) {
 	let username;
 	let password;
+
+	const [message, setMessage] = useState('');
 
 	const history = useHistory();
 
@@ -16,9 +18,37 @@ function Login(props) {
 	const login = async (event) => {
 		event.preventDefault();
 		let js = `{"login":"${username.value}","password":"${password.value}"}`;
-		// alert("Successfully logged in!")
+		// // alert('Successfully logged in!');
 		console.log(js);
-		history.push('/dashboard');
+
+		try {
+			const response = await fetch('http://localhost:5000/api/login', {
+				method: 'POST',
+				body: js,
+				headers: { 'Content-Type': 'application/json' }
+			});
+
+			var res = JSON.parse(await response.text());
+
+			if (res.id <= 0) {
+				setMessage('Username or password is incorrect.');
+			} else {
+				let user = {
+					firstName: res.firstName,
+					lastName: res.lastName,
+					id: res.id
+				};
+				localStorage.setItem('user_data', JSON.stringify(user));
+
+				setMessage('');
+				window.location.href = '/dashboard';
+			}
+		} catch (e) {
+			alert(e.toString());
+			return;
+		}
+
+		// history.push('/dashboard');
 	};
 
 	return (
@@ -61,6 +91,7 @@ function Login(props) {
 					New user? Register here.
 				</button>
 			</form>
+			<span>{message}</span>
 		</div>
 	);
 }
