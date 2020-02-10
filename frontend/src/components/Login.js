@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useHistory, Redirect } from 'react-router-dom';
-import { FaUser, FaArrowRight, FaRegWindowRestore } from 'react-icons/fa';
+import { useHistory } from 'react-router-dom';
+import { FaUser, FaArrowRight } from 'react-icons/fa';
 import { GoKey } from 'react-icons/go';
 
 function Login(props) {
@@ -17,7 +17,7 @@ function Login(props) {
 
 	const login = async (event) => {
 		event.preventDefault();
-		let js = `{"login":"${username.value}","password":"${password.value}"}`;
+		let js = `{"user":"${username.value}","password":"${password.value}"}`;
 		// // alert('Successfully logged in!');
 		console.log(js);
 
@@ -29,8 +29,8 @@ function Login(props) {
 			});
 
 			var res = JSON.parse(await response.text());
-
-			if (res.id <= 0) {
+			// console.log(res);
+			if (res.error === 'not_correct_password') {
 				setMessage('Username or password is incorrect.');
 			} else {
 				let user = {
@@ -87,11 +87,12 @@ function Login(props) {
 					<FaArrowRight />
 				</button>
 				<br />
+				<span className="error">{message}</span>
+				<br />
 				<button className="button-link" onClick={register}>
 					New user? Register here.
 				</button>
 			</form>
-			<span>{message}</span>
 		</div>
 	);
 }
