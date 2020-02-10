@@ -7,7 +7,7 @@ const sanitize = require('mongo-sanitize');
 const database = require('../database.js');
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
-const client = new MongoClient(database.URL, { useUnifiedTopology: true });
+const client = new MongoClient(database.URL, { useUnifiedTopology: true, connectTimeoutMS: 1000 });
 
 //connecting to the server
 client.connect(function(err, db) {
@@ -171,15 +171,22 @@ router.post('/login', async (req, res, next) => {
 	const password = sanitize(req.body.password);
 
 	const db = client.db();
+
 	const result = await db.collection('Users').findOne({ user: user });
 	var err = '';
 
 	//console.log(result.password);
-	if (bcrypt.compareSync(password, result.password) == true) {
-		err = '';
+	if(result != null) {
+		if (bcrypt.compareSync(password, result.password) == true) {
+			err = '';
+		} else {
+			err = 'not_correct_password';
+		} 
 	} else {
 		err = 'not_correct_password';
 	}
+	console.log(result);
+
 
 	var ret = {
 		error: err
