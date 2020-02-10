@@ -10,6 +10,7 @@ const MongoClient = require('mongodb').MongoClient;
 const client = new MongoClient(database.URL, { useUnifiedTopology: true });
 
 //connecting to the server
+console.log('Connection String is : ' + database.URL)
 client.connect(function(err, db) {
 	if (err) {
 		console.log(
