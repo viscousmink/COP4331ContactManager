@@ -29,14 +29,12 @@ function Login(props) {
 			});
 
 			var res = JSON.parse(await response.text());
-			// console.log(res);
+			console.log(res);
 			if (res.error === 'not_correct_password') {
 				setMessage('Username or password is incorrect.');
 			} else {
 				let user = {
-					firstName: res.firstName,
-					lastName: res.lastName,
-					id: res.id
+					user: username.value
 				};
 				localStorage.setItem('user_data', JSON.stringify(user));
 

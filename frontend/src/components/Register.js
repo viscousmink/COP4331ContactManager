@@ -29,7 +29,7 @@ function Register(props) {
 				headers: { 'Content-Type': 'application/json' }
 			});
 
-			var res = JSON.parse(await response.text());
+			let res = JSON.parse(await response.text());
 
 			if (res.error.length > 0) {
 				setMessage(`API Error: ${res.error}`);
