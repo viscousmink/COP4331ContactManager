@@ -41,7 +41,7 @@ function Login(props) {
 				localStorage.setItem('user_data', JSON.stringify(user));
 
 				setMessage('');
-				window.location.href = '/dashboard';
+				history.push('/dashboard');
 			}
 		} catch (e) {
 			alert(e.toString());
