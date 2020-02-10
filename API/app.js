@@ -71,7 +71,7 @@ Status Codes :
 */
 
 //send a get request to return all contacts
-router.get('/allcontacts', async (req, res, next) => {
+router.post('/allcontacts', async (req, res, next) => {
 	console.log(req.body.user);
 	const user = sanitize(req.body.user);
 
