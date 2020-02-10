@@ -16,8 +16,8 @@ app.use(express.static(path.join(__dirname, 'frontend', 'build')));
 
 // Handle React routing, return all requests to React app
 app.get('/*', (req, res) => {
-	res.sendFile('/frontend/public/index.html', { root: __dirname });
-	//rex.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
+	// res.sendFile('/frontend/public/index.html', { root: __dirname });
+	res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
 });
 
 // const PORT = process.env.PORT;
