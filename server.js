@@ -23,7 +23,7 @@ app.get('/*', (req, res) => {
 // const PORT = process.env.PORT;
 // app.listen(PORT, () => console.log('Wizardous stuff on ' + PORT));
 
-// const port = process.env.PORT || 5000;
-app.listen(process.env.PORT || 8000);
+const port = process.env.PORT || 8000;
+app.listen(port);
 
 console.log(`Wizardous stuff on ${port}`);
