@@ -1,3 +1,4 @@
 # COP4331ContactManager
 
-Link to Front End Repository : https://github.com/ArthurWHenry/cm-frontend
+start the server with node server
+start the react server with cd frontend && npm start
