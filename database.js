@@ -1,10 +1,8 @@
 require('dotenv').config();
 
-const { PASSWORD } = process.env;
+const { DBPASSWORD, DBUSER } = process.env;
 
 module.exports = {
 	URL:
-		'mongodb+srv://viscousmink:' +
-		PASSWORD +
-		'@cluster0-sb44x.azure.mongodb.net/test?retryWrites=true&w=majority'
+		'mongodb+srv://' + DBUSER + ':' + DBPASSWORD + '@cluster0-sb44x.azure.mongodb.net/test?retryWrites=true&w=majority'
 };
