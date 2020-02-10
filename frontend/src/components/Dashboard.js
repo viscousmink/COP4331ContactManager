@@ -8,6 +8,7 @@ function Dashboard(props) {
 
 	let user = {};
 
+	const [message, setMessage] = useState('');
 	const [searchResults, setResults] = useState('');
 	const [contactList, setContactList] = useState('');
 
@@ -36,8 +37,11 @@ function Dashboard(props) {
 
 			let res = JSON.parse(await response.text());
 
-			console.log(res);
+			// Code to access first name of contacts
+			console.log(res.results[0].first_name);
 			// let _results = res.results;
+
+			setMessage(`${res.results[0].first_name} ${res.results[0].last_name}`);
 
 			// let resultText = '';
 
@@ -79,6 +83,7 @@ function Dashboard(props) {
 						Contact List
 						<hr />
 						<button onClick={getContactList}></button>
+						{message}
 					</div>
 					<div className="contact-info">
 						{/* I believe we're gonna have to use a span to show the information of each contact. */}
