@@ -57,16 +57,18 @@ function ContactCard(props) {
 			<div className="contact-card-box">
 				<div className="box-header">
 					<h1>Contact</h1>
-
-					<p>
-						Name: <br />
-						{name}
-					</p>
-					<p>Phone Number: {phone}</p>
-					<p>Email: {email}</p>
-					<p>Address: {address}</p>
-					<p>City: {city}</p>
-					<p>State: {state}</p>
+					<h4>Name</h4>
+					<p>{name}</p>
+					<h4>Phone Number</h4>
+					<p>{phone}</p>
+					<h4>Email</h4>
+					<p>{email}</p>
+					<h4>Address</h4>
+					<p>{address}</p>
+					<h4>City</h4>
+					<p>{city}</p>
+					<h4>State</h4>
+					<p>{state}</p>
 				</div>
 				<button onClick={modify} className="contact-card-button">
 					Update

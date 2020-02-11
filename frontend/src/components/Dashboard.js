@@ -140,7 +140,6 @@ function Dashboard(props) {
 	};
 
 	const contactDisplay = async (event) => {
-
 		//localStorage.setItem('contact_data', JSON.stringify(event));
 		console.log(localStorage.getItem('contact_data'));
 		history.push('/contactcard');
@@ -161,7 +160,7 @@ function Dashboard(props) {
 					ref={(contact) => (search = contact)}
 				/>
 				<FaSearch />
-				<button onClick={contactDisplay}></button>
+				{/* <button onClick={contactDisplay}></button> */}
 				{}
 				<br />
 				<div className="contact-list-box">
@@ -171,7 +170,7 @@ function Dashboard(props) {
 								<button
 									key={index}
 									className="contact"
-									onClick={goToContact(index)}>
+									onClick={contactDisplay}>
 									{name}
 								</button>
 							);
