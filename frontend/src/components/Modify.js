@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { TiUserAdd } from 'react-icons/ti';
 
-function AddContact(props) {
+function Modify(props) {
+	const history = useHistory();
 	let user = {};
 	let firstName;
 	let lastName;
@@ -14,8 +15,6 @@ function AddContact(props) {
 
 	const [message, setMessage] = useState('');
 
-	const history = useHistory();
-
 	const updateContact = async (event) => {
 		event.preventDefault();
 
@@ -25,7 +24,7 @@ function AddContact(props) {
 			let _user = JSON.parse(retrievedObject);
 			user = _user;
 		}
-		const history = useHistory();
+		let _contact = '';
 		if (localStorage.contact) {
 			let retrieved = localStorage.getItem('contact');
 			let _contact = JSON.parse(retrieved);
@@ -72,10 +71,10 @@ function AddContact(props) {
 		<>
 			<div className="addcontact-box">
 				<div className="box-header">
-					<h1>Add Contact</h1>
+					<h1>Update Contact</h1>
 				</div>
 				{/* The two form attributes allow us to use the enter key to submit information. */}
-				<form action="" method="get" onSubmit={addContact}>
+				<form action="" method="get" onSubmit={updateContact}>
 					<div className="addcontact-item">
 						{/* <FaUser /> */}
 						<input
@@ -171,4 +170,4 @@ function AddContact(props) {
 	);
 }
 
-export default AddContact;
+export default Modify;

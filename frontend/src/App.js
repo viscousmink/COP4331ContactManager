@@ -12,6 +12,7 @@ import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import AddContactPage from './pages/AddContactPage';
 import ContactCardPage from './pages/ContactCardPage';
+import ModifyPage from './pages/ModifyPage';
 
 function App() {
 	return (
@@ -22,6 +23,9 @@ function App() {
 				</Route>
 				<Route path="/register">
 					<RegisterPage />
+				</Route>
+				<Route path="/modify">
+					<ModifyPage />
 				</Route>
 				<Route path="/dashboard">
 					<DashboardPage />
