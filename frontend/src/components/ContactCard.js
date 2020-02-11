@@ -29,7 +29,7 @@ function ContactCard(props) {
 		let user = '';
 		let retrieved = localStorage.getItem('contact_data');
 		let _contact = JSON.parse(retrieved);
-		
+
 		history.push('/dashboard');
 		if (localStorage.user_data) {
 			let retrievedObject = localStorage.getItem('user_data');
@@ -46,7 +46,7 @@ function ContactCard(props) {
 				headers: { 'Content-Type': 'application/json' }
 			}
 		);
-	}
+	};
 
 	const goBack = async (event) => {
 		history.push('/dashboard');
@@ -68,9 +68,17 @@ function ContactCard(props) {
 					<p>City: {city}</p>
 					<p>State: {state}</p>
 				</div>
-				<button onClick={modify}></button>
+				<button onClick={modify} className="contact-card-button">
+					Update
+				</button>
 				<br />
-				<button onClick={goBack}>Go Back</button>
+				<button onClick={deleteFunc} className="contact-card-button">
+					Delete
+				</button>
+				<br />
+				<button onClick={goBack} className="contact-card-button">
+					Go Back
+				</button>
 				<br />
 			</div>
 		</>

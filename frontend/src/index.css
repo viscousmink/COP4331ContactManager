@@ -222,3 +222,16 @@ select.focus {
 	color: grey;
 	transition: 0.3s;
 }
+
+.contact-card-button {
+	border: none;
+	background-color: transparent;
+	font-size: medium;
+	padding: 0.5rem;
+}
+
+.contact-card-button:hover {
+	cursor: pointer;
+	color: grey;
+	transition: 0.3s;
+}
