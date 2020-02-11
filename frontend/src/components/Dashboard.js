@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { IoIosLogOut } from 'react-icons/io';
-import { FaSearch } from 'react-icons/fa';
+import { Button, Collapse } from 'react-bootstrap';
+import { FaSearch, FaPlus, FaMinus } from 'react-icons/fa';
 
 function Dashboard(props) {
+	const [open, setOpen] = useState(false);
 	const history = useHistory();
 
 	let user = {};
@@ -99,6 +101,11 @@ function Dashboard(props) {
 						</p>
 					</div>
 				</div>
+				{/* <button className="addContact">
+					<FaPlus />
+				</button> */}
+
+				<br />
 				<button className="submit-button" onClick={logout}>
 					<IoIosLogOut />
 				</button>

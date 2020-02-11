@@ -178,3 +178,18 @@ select.focus {
 	margin: 1rem 0.5rem 0 0.5rem;
 	padding: 0.25rem;
 }
+
+.addContact {
+	text-align: left;
+	border: none;
+	font-size: medium;
+	background-color: transparent;
+	padding: 0.5rem;
+	margin: 0.25rem 0;
+}
+
+.addContact:hover {
+	color: grey;
+	transition: 0.3s;
+	cursor: pointer;
+}
