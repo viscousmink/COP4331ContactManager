@@ -26,7 +26,7 @@ function Modify(props) {
 		}
 		let _contact = '';
 		if (localStorage.contact) {
-			let retrieved = localStorage.getItem('contact');
+			let retrieved = localStorage.getItem('contact_data');
 			let _contact = JSON.parse(retrieved);
 			let name = _contact.first_name + _contact.last_name;
 			let address = _contact.street;
