@@ -11,7 +11,7 @@ function Dashboard(props) {
 
 	let contactStrings = [];
 
-	const [contacts, setContacts] = useState([]);
+	const [contacts, setContacts, message, setMessage] = useState([]);
 	// this hook will run once on render
 	useEffect(() => {
 		getContacts();
@@ -53,66 +53,79 @@ function Dashboard(props) {
 		setContacts(contactStrings);
 	}
 
-	// const searchContactList = async (event) => {
-	// 	event.preventDefault();
+	 const searchContactList = async (event) => {
+	 	event.preventDefault();
 
-	// if (localStorage.user_data) {
-	// 	let retrievedObject = localStorage.getItem('user_data');
-	// 	let _user = JSON.parse(retrievedObject);
-	// 	user = _user;
-	// }
+	 if (localStorage.user_data) {
+	 	let retrievedObject = localStorage.getItem('user_data');
+	 	let _user = JSON.parse(retrievedObject);
+	 	user = _user;
+	 }
 
-	// 	let js = `{"user":"${user.user}","search":"${search.value}"}`;
+	 	let js = `{"user":"${user.user}","search":"${search.value}"}`;
 
-	// 	try {
-	// 		const response = await fetch(
-	// 			'https://my-network-ucf.herokuapp.com/api/searchcontact',
-	// 			{
-	// 				method: 'POST',
-	// 				body: js,
-	// 				headers: { 'Content-Type': 'application/json' }
-	// 			}
-	// 		);
+	 	try {
+	 		const response = await fetch(
+	 			'https://my-network-ucf.herokuapp.com/api/searchcontact',
+	 			{
+	 				method: 'POST',
+	 				body: js,
+	 				headers: { 'Content-Type': 'application/json' }
+	 			}
+	 		);
 
-	// 		// let res = JSON.parse(await response.text());
+	 		// let res = JSON.parse(await response.text());
 
-	// 		// console.log(res);
+	 		// console.log(res);
 
-	// 		let txt = await response.text();
-	// 		let res = JSON.parse(txt);
-	// 		let _results = res.results;
-	// 		var resultText = '';
-	// 		for (var i = 0; i < _results.length; i++) {
-	// 			resultText += _results[i];
-	// 			if (i < _results.length - 1) {
-	// 				resultText += ', ';
-	// 			}
-	// 		}
-	// 		setContacts(resultText);
+	 		/* let txt = await response.text();
+	 		let res = JSON.parse(txt);
+	 		let _results = res.results;
+	 		var resultText = '';
+	 		for (var i = 0; i < _results.length; i++) {
+	 			resultText += _results[i];
+	 			if (i < _results.length - 1) {
+	 				resultText += ', ';
+	 			}
+	 		}
+	 		setContacts(resultText);
 
 	// 		useEffect(() => {
 	// 			getContacts();
 	// 		});
 
-	// for (let i = 0; i < _results.length; i++) {
-	// 	contacts.push(`${_results[i].first_name} ${_results[i].last_name}`);
-	// 		// 	if (search.value === '') {
-	// 		// 		setMessage('');
-	// 		// 	} else {
-	// 		// 		setMessage(contacts);
-	// 		// 	}
-	// 		// 	console.log(contacts[i]);
-	// 		// }
+	 for (let i = 0; i < _results.length; i++) {
+	 	contacts.push(`${_results[i].first_name} ${_results[i].last_name}`);
+	 		 	if (search.value === '') {
+	 		 		setMessage('');
+	 		 	} else {
+	 		 		setMessage(contacts);
+	 		 	}
+	 		 	console.log(contacts[i]);
+	 		 }
 
-	// 		// if (search.value === '') {
-	// 		// 	setMessage('');
-	// 		// } else {
-	// 		// 	setMessage(`Found ${_results[0].first_name}`);
-	// 		// }
-	// 	} catch (e) {}
+	 		 if (search.value === '') {
+	 		 	setMessage('');
+	 		 } else {
+	 		 	setMessage(`Found ${_results[0].first_name}`);
+	 		 }
+	 	} catch (e) {} */
+	 	let res = JSON.parse(await response.text());
+		let contactList = res.results;
+
+		for (let i = 0; i < contactList.length; i++) {
+			contactStrings.push(
+				`${contactList[i].first_name} ${contactList[i].last_name}`
+			);
+		}
+
+		console.log(contactStrings);
+
+		setContacts(contactStrings);
+	} catch(err) {}
 
 	// 	// User.user will allow us to get the user name.
-	// };
+	 };
 
 	const logout = async (event) => {
 		// window.alert("You have successfully logged out!");
@@ -130,7 +143,7 @@ function Dashboard(props) {
 					id="searchText"
 					placeholder="Search contacts..."
 					className="input-field search-bar"
-					// onChange={searchContactList}
+					onChange={searchContactList}
 					ref={(contact) => (search = contact)}
 				/>
 				<FaSearch />
