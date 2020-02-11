@@ -38,12 +38,12 @@ function Dashboard(props) {
 
 		console.log(contactList);
 
-		setContacts(res);
+		setContacts(contactList);
 
 		// this hook will run once on render
-		// useEffect(() => {
-		// 	getContacts();
-		// }, []);
+		useEffect(() => {
+			getContacts();
+		});
 	}
 
 	// const searchContactList = async (event) => {
