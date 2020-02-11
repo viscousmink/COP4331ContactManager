@@ -118,7 +118,7 @@ function Dashboard(props) {
 					`${contactList[i].first_name} ${contactList[i].last_name}`
 				);
 			}
-			// localStorage.setItem('contact', JSON.stringify(contactList[0]));
+			localStorage.setItem('contact_data', JSON.stringify(contactList[0]));
 
 			console.log(contactStrings);
 
@@ -129,7 +129,7 @@ function Dashboard(props) {
 	};
 
 	const goToContact = async (event) => {
-		localStorage.setItem('contact_data', JSON.stringify(event));
+		//localStorage.setItem('contact_data', JSON.stringify(event));
 		console.log(localStorage.getItem('contact_data'));
 		// history.push('/contactcard');
 	};
@@ -140,6 +140,9 @@ function Dashboard(props) {
 	};
 
 	const contactDisplay = async (event) => {
+
+		//ocalStorage.setItem('contact_data', JSON.stringify(event));
+		console.log(localStorage.getItem('contact_data'));
 		history.push('/contactcard');
 	};
 
