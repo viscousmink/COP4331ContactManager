@@ -15,18 +15,18 @@ function ContactCard(props) {
 		let state = _contact.state;
 		let email = _contact.email;
 	}
-	return 
-		<>
-			<div className="dashboard-box">
-				<div className="box-header">
-					<h1>{name}</h1>
-				</div>
-				<br />
-				<button className="submit-button" onClick={logout}>
-					<IoIosLogOut />
-				</button>
+	return;
+	<>
+		<div className="dashboard-box">
+			<div className="box-header">
+				<h1>{name}</h1>
 			</div>
-		</>
+			<br />
+			<button className="submit-button" onClick={logout}>
+				<IoIosLogOut />
+			</button>
+		</div>
+	</>;
 }
 
 export default ContactCard;

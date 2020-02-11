@@ -28,6 +28,9 @@ function App() {
 				<Route path="/addcontact">
 					<AddContactPage />
 				</Route>
+				<Route path="/contactcard">
+					<ContactCardPage />
+				</Route>
 				<Redirect to="/" />
 			</Switch>
 		</Router>
