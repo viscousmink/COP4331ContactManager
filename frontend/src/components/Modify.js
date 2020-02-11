@@ -163,7 +163,7 @@ function Modify(props) {
 						/>
 						<br />
 					</div>
-					<button type="submit" className="submit-button">
+					<button type="submit" className="submit-button" onClick={updateContact}>
 						<TiUserAdd />
 					</button>
 					<button onClick={goBack}>Go Back</button>
