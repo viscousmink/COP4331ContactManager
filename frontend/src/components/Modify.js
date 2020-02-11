@@ -48,7 +48,7 @@ function Modify(props) {
 				'https://my-network-ucf.herokuapp.com/api/updatecontact',
 				{
 					method: 'POST',
-					body: {"filter": js, "update":jsUpdate},
+					body: { filter: js, update: jsUpdate },
 					headers: { 'Content-Type': 'application/json' }
 				}
 			);

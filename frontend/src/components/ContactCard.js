@@ -21,6 +21,11 @@ function ContactCard(props) {
 		state = _contact.state;
 		email = _contact.email;
 	}
+
+	const modify = async (event) => {
+		history.push('/modify');
+	};
+
 	return (
 		<>
 			<div className="dashboard-box">
@@ -37,6 +42,7 @@ function ContactCard(props) {
 					<p>City: {city}</p>
 					<p>State: {state}</p>
 				</div>
+				<button onClick={modify}></button>
 				<br />
 			</div>
 		</>
