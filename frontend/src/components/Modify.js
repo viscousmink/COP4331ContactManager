@@ -37,7 +37,7 @@ function Modify(props) {
 		}
 		let jsUpdate = `{"user":"${user.user}", "first_name":"${_contact.first_name}", "last_name":"${_contact.last_name}", "phone_number":"${_contact.phone_number}", "email":"${_contact.email}", "street":"${_contact.street}", "city":"${_contact.state}"}`;
 
-		console.log(user.user);
+		// console.log(user.user);
 
 		let js = `{"filter":{"user":"${user.user}","first_name":"${firstName.value}","last_name":"${lastName.value}","phone_number":"${phoneNumber.value}","email":"${email.value}","street":"${street.value}","city":"${city.value}","state":"${state.value}"}, "update":{"user":"${user.user.value}", "first_name":"${_contact.first_name.value}", "last_name":"${_contact.last_name.value}", "phone_number":"${_contact.phone_number.value}", "email":"${_contact.email.value}", "street":"${_contact.street.value}", "city":"${_contact.state.value}"}}`;
 		// // alert('Successfully logged in!');
@@ -163,7 +163,10 @@ function Modify(props) {
 						/>
 						<br />
 					</div>
-					<button type="submit" className="submit-button" onClick={updateContact}>
+					<button
+						type="submit"
+						className="submit-button"
+						onClick={updateContact}>
 						<TiUserAdd />
 					</button>
 					<button onClick={goBack}>Go Back</button>

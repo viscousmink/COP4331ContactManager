@@ -157,8 +157,8 @@ select.focus {
 .contact-list {
 	flex: 1;
 	/* border: 1px solid black; */
-	padding: 1rem;
-	margin: 1rem;
+	padding: 2rem;
+	margin: 2rem;
 	text-align: left;
 }
 
@@ -207,6 +207,8 @@ select.focus {
 }
 .contact-list-box {
 	display: flex;
+	padding: 2rem;
+	margin: 2rem;
 }
 .contact-list {
 	flex-direction: column;
@@ -221,6 +223,14 @@ select.focus {
 	cursor: pointer;
 	color: grey;
 	transition: 0.3s;
+}
+
+.contact-card-box {
+	width: 15rem;
+	padding: 2rem 5rem;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 1);
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .contact-card-button {

@@ -56,6 +56,10 @@ function AddContact(props) {
 		}
 	};
 
+	const goBack = async (event) => {
+		history.push('/dashboard');
+	};
+
 	return (
 		<>
 			<div className="addcontact-box">
@@ -150,6 +154,10 @@ function AddContact(props) {
 					</div>
 					<button type="submit" className="submit-button">
 						<TiUserAdd />
+					</button>
+					<br />
+					<button onClick={goBack} className="contact-card-button">
+						Go Back
 					</button>
 					<br />
 					<span className="error">{message}</span>

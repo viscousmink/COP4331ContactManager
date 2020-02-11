@@ -54,7 +54,7 @@ function ContactCard(props) {
 
 	return (
 		<>
-			<div className="dashboard-box">
+			<div className="contact-card-box">
 				<div className="box-header">
 					<h1>Contact</h1>
 
