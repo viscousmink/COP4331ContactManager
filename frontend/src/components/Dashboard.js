@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { IoIosLogOut } from 'react-icons/io';
-import { FaSearch, FaPlus, FaMinus } from 'react-icons/fa';
+import { FaSearch } from 'react-icons/fa';
 
 function Dashboard(props) {
-	const [open, setOpen] = useState(false);
 	const history = useHistory();
 
 	let user = {};
+	let search = '';
 
-	const [message, setMessage] = useState('');
-	const [searchResults, setResults] = useState('');
+	// let contactList = [];
+
 	const [contactList, setContactList] = useState('');
 
 	const addContact = async (event) => {
@@ -43,26 +43,34 @@ function Dashboard(props) {
 			let res = JSON.parse(await response.text());
 
 			// Code to access first name of contacts
-			console.log(res.results[0].first_name);
-			// let _results = res.results;
-
-			setMessage(`${res.results[2].first_name} ${res.results[2].last_name}`);
-
-			// let resultText = '';
+			// console.log(res.results[0].first_name);
+			let _results = res.results;
+			// console.log(_results);
 
 			// for (let i = 0; i < _results.length; i++) {
-			// 	resultText += _results[i];
-
-			// 	if (i < _results.length - 1) {
-			// 		resultText += ', ';
-			// 	}
+			// 	contactList.push(`${_results[i].first_name} ${_results[i].last_name}`);
 			// }
 
+			// contactList.forEach((element) => {
+			// 	console.log(element);
+			// });
+
+			// setMessage(`${res.results[0].first_name} ${res.results[0].last_name}`);
+
+			let resultText = '';
+
+			for (let i = 0; i < _results.length; i++) {
+				resultText += `${_results[i].first_name} ${_results[i].last_name}`;
+
+				if (i < _results.length - 1) {
+					resultText += ',';
+				}
+			}
+
 			// setResults('Contacts have been retrieved.');
-			// setContactList(resultText);
+			setContactList(resultText);
 		} catch (e) {
 			alert(e.toString());
-			setResults(e.toString());
 		}
 	};
 
@@ -77,18 +85,27 @@ function Dashboard(props) {
 				<div className="box-header">
 					<h1>Dashboard</h1>
 				</div>
-				<FaSearch />
 				<input
-					type="search"
-					placeholder="Search..."
+					type="text"
+					id="searchText"
+					placeholder="Search contacts..."
 					className="input-field search-bar"
+					ref={(contact) => (search = contact)}
 				/>
+				<button
+					type="button"
+					id="searchContactButton"
+					className="submit-button"
+					onClick={getContactList}>
+					<FaSearch />
+				</button>
 				<div className="dashboard-contact">
 					<div className="contact-list">
 						Contact List
 						<hr />
 						<button onClick={getContactList}></button>
-						{message}
+						<br />
+						<div>{contactList}</div>
 					</div>
 					<div className="contact-info">
 						{/* I believe we're gonna have to use a span to show the information of each contact. */}
