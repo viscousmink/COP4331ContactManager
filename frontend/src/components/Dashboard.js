@@ -53,32 +53,32 @@ function Dashboard(props) {
 		setContacts(contactStrings);
 	}
 
-	 const searchContactList = async (event) => {
-	 	event.preventDefault();
+	const searchContactList = async (event) => {
+		event.preventDefault();
 
-	 if (localStorage.user_data) {
-	 	let retrievedObject = localStorage.getItem('user_data');
-	 	let _user = JSON.parse(retrievedObject);
-	 	user = _user;
-	 }
+		if (localStorage.user_data) {
+			let retrievedObject = localStorage.getItem('user_data');
+			let _user = JSON.parse(retrievedObject);
+			user = _user;
+		}
 
-	 	let js = `{"user":"${user.user}","search":"${search.value}"}`;
+		let js = `{"user":"${user.user}","search":"${search.value}"}`;
 
-	 	try {
-	 		const response = await fetch(
-	 			'https://my-network-ucf.herokuapp.com/api/searchcontact',
-	 			{
-	 				method: 'POST',
-	 				body: js,
-	 				headers: { 'Content-Type': 'application/json' }
-	 			}
-	 		);
+		try {
+			const response = await fetch(
+				'https://my-network-ucf.herokuapp.com/api/searchcontact',
+				{
+					method: 'POST',
+					body: js,
+					headers: { 'Content-Type': 'application/json' }
+				}
+			);
 
-	 		// let res = JSON.parse(await response.text());
+			// let res = JSON.parse(await response.text());
 
-	 		// console.log(res);
+			// console.log(res);
 
-	 		/* let txt = await response.text();
+			/* let txt = await response.text();
 	 		let res = JSON.parse(txt);
 	 		let _results = res.results;
 	 		var resultText = '';
@@ -110,23 +110,29 @@ function Dashboard(props) {
 	 		 	setMessage(`Found ${_results[0].first_name}`);
 	 		 }
 	 	} catch (e) {} */
-	 	let res = JSON.parse(await response.text());
-		let contactList = res.results;
+			let res = JSON.parse(await response.text());
+			let contactList = res.results;
 
-		for (let i = 0; i < contactList.length; i++) {
-			contactStrings.push(
-				`${contactList[i].first_name} ${contactList[i].last_name}`
-			);
-		}
-		localStorage.setItem('contact', JSON.stringify(contactList[0]));
+			for (let i = 0; i < contactList.length; i++) {
+				contactStrings.push(
+					`${contactList[i].first_name} ${contactList[i].last_name}`
+				);
+			}
+			// localStorage.setItem('contact', JSON.stringify(contactList[0]));
 
-		console.log(contactStrings);
+			console.log(contactStrings);
 
-		setContacts(contactStrings);
-	} catch(err) {}
+			setContacts(contactStrings);
+		} catch (err) {}
 
-	// 	// User.user will allow us to get the user name.
-	 };
+		// 	// User.user will allow us to get the user name.
+	};
+
+	const goToContact = async (event) => {
+		localStorage.setItem('contact_data', JSON.stringify(event));
+		console.log(localStorage.getItem('contact_data'));
+		// history.push('/contactcard');
+	};
 
 	const logout = async (event) => {
 		// window.alert("You have successfully logged out!");
@@ -134,8 +140,8 @@ function Dashboard(props) {
 	};
 
 	const contactDisplay = async (event) => {
-		history.push('/contactcard')
-	}
+		history.push('/contactcard');
+	};
 
 	return (
 		<>
@@ -155,12 +161,19 @@ function Dashboard(props) {
 				<button onClick={contactDisplay}></button>
 				{}
 				<br />
-				<div>
-					<ul>
+				<div className="contact-list-box">
+					<div className="conact-list">
 						{contacts.map((name, index) => {
-							return <li key={index}>{name}</li>;
+							return (
+								<button
+									key={index}
+									className="contact"
+									onClick={goToContact(index)}>
+									{name}
+								</button>
+							);
 						})}
-					</ul>
+					</div>
 				</div>
 				<button className="addContact" onClick={addContact}>
 					Add Contact

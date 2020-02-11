@@ -36,6 +36,7 @@ function App() {
 				<Route path="/contactcard">
 					<ContactCardPage />
 				</Route>
+				<Route path="/modify">{/* <ModifyPage /> */}</Route>
 				<Redirect to="/" />
 			</Switch>
 		</Router>

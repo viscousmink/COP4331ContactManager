@@ -205,3 +205,20 @@ select.focus {
 .addcontact-item {
 	margin: 1rem 0;
 }
+.contact-list-box {
+	display: flex;
+}
+.contact-list {
+	flex-direction: column;
+}
+
+.contact {
+	border: none;
+	font-size: medium;
+}
+
+.contact:hover {
+	cursor: pointer;
+	color: grey;
+	transition: 0.3s;
+}
