@@ -67,6 +67,10 @@ function Modify(props) {
 		}
 	};
 
+	const goBack = async (event) => {
+		history.push('/dashboard');
+	};
+
 	return (
 		<>
 			<div className="addcontact-box">
@@ -162,6 +166,7 @@ function Modify(props) {
 					<button type="submit" className="submit-button">
 						<TiUserAdd />
 					</button>
+					<button onClick={goBack}>Go Back</button>
 					<br />
 					<span className="error">{message}</span>
 				</form>

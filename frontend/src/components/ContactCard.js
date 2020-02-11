@@ -26,6 +26,10 @@ function ContactCard(props) {
 		history.push('/modify');
 	};
 
+	const goBack = async (event) => {
+		history.push('/dashboard');
+	};
+
 	return (
 		<>
 			<div className="dashboard-box">
@@ -43,6 +47,8 @@ function ContactCard(props) {
 					<p>State: {state}</p>
 				</div>
 				<button onClick={modify}></button>
+				<br />
+				<button onClick={goBack}>Go Back</button>
 				<br />
 			</div>
 		</>
