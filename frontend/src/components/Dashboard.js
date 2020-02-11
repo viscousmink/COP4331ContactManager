@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { IoIosLogOut } from 'react-icons/io';
-import { Button, Collapse } from 'react-bootstrap';
 import { FaSearch, FaPlus, FaMinus } from 'react-icons/fa';
 
 function Dashboard(props) {
@@ -14,10 +13,14 @@ function Dashboard(props) {
 	const [searchResults, setResults] = useState('');
 	const [contactList, setContactList] = useState('');
 
+	const addContact = async (event) => {
+		history.push('/addcontact');
+	};
+
 	const getContactList = async (event) => {
 		event.preventDefault();
 
-		console.log(localStorage.getItem('user_date'));
+		console.log(localStorage.getItem('user_data'));
 		if (localStorage.user_data) {
 			let retrievedObject = localStorage.getItem('user_data');
 			let _user = JSON.parse(retrievedObject);
@@ -43,7 +46,7 @@ function Dashboard(props) {
 			console.log(res.results[0].first_name);
 			// let _results = res.results;
 
-			setMessage(`${res.results[0].first_name} ${res.results[0].last_name}`);
+			setMessage(`${res.results[2].first_name} ${res.results[2].last_name}`);
 
 			// let resultText = '';
 
@@ -101,9 +104,9 @@ function Dashboard(props) {
 						</p>
 					</div>
 				</div>
-				{/* <button className="addContact">
-					<FaPlus />
-				</button> */}
+				<button className="addContact" onClick={addContact}>
+					Add Contact
+				</button>
 
 				<br />
 				<button className="submit-button" onClick={logout}>

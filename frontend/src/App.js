@@ -10,6 +10,7 @@ import {
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
+import AddContactPage from './pages/AddContactPage';
 
 function App() {
 	return (
@@ -23,6 +24,9 @@ function App() {
 				</Route>
 				<Route path="/dashboard">
 					<DashboardPage />
+				</Route>
+				<Route path="/addcontact">
+					<AddContactPage />
 				</Route>
 				<Redirect to="/" />
 			</Switch>
