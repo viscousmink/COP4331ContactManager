@@ -281,12 +281,37 @@ router.put('/updatecontact', async (req, res, next) => {
 	res.status(200).json(ret);
 });
 
-/*
+
 //implement searchContact using post request
 router.post('/searchContact', async(req, res, next) =>
 {
-	//incoming 
-}
-*/
+	console.log(req.body.user);
+	const user = sanitize(req.body.user);
+	const first_name = sanitize(req.body.first_name);
+
+	var err = '';
+	if (user) {
+		const db = client.db();
+		const results = await db
+			.collection('Contacts')
+			.find({ user: user, first_name: first_name})
+			.toArray();
+		var _ret = [];
+		for (var i = 0; i < results.length; i++) {
+			_ret.push({
+				first_name: results[i].first_name,
+				last_name: results[i].last_name,
+				phone_number: results[i].phone_number,
+				email: results[i].email,
+				street: results[i].street,
+				city: results[i].city,
+				state: results[i].state
+			});
+		}
+		var ret = { results: _ret, error: err };
+		res.status(200).json(ret);
+	}
+});
+
 
 module.exports = router;
