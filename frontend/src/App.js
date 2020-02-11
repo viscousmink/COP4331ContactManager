@@ -11,6 +11,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import AddContactPage from './pages/AddContactPage';
+import ContactCardPage from './pages/ContactCardPage';
 
 function App() {
 	return (

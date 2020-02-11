@@ -7,7 +7,7 @@ function ContactCard(props) {
 	const history = useHistory();
 	if (localStorage.contact) {
 		let retrieved = localStorage.getItem('contact');
-		let _contact = JSON.parse(retrievedObject);
+		let _contact = JSON.parse(retrieved);
 		let name = _contact.first_name + _contact.last_name;
 		let address = _contact.street;
 		let phone = _contact.phone_number;
@@ -15,18 +15,16 @@ function ContactCard(props) {
 		let state = _contact.state;
 		let email = _contact.email;
 	}
-	return;
+	return(
 	<>
 		<div className="dashboard-box">
 			<div className="box-header">
-				<h1>{name}</h1>
+				<h1>Contact</h1>
+				
 			</div>
 			<br />
-			<button className="submit-button" onClick={logout}>
-				<IoIosLogOut />
-			</button>
 		</div>
-	</>;
+	</>);
 }
 
 export default ContactCard;
