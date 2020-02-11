@@ -30,7 +30,7 @@ function ContactCard(props) {
 		let retrieved = localStorage.getItem('contact_data');
 		let _contact = JSON.parse(retrieved);
 
-		history.push('/dashboard');
+		// history.push('/dashboard');
 		if (localStorage.user_data) {
 			let retrievedObject = localStorage.getItem('user_data');
 			let _user = JSON.parse(retrievedObject);
@@ -38,14 +38,16 @@ function ContactCard(props) {
 		}
 
 		let js = `{"user":"${user.user}", "first_name":"${_contact.first_name}", "last_name":"${_contact.last_name}", "phone_number":"${_contact.phone_number}", "email":"${_contact.email}", "street":"${_contact.street}", "city":"${_contact.state}"}`;
+		console.log(js);
 		const response = await fetch(
 			'https://my-network-ucf.herokuapp.com/api/deletecontact',
 			{
-				method: 'POST',
+				method: 'DELETE',
 				body: js,
 				headers: { 'Content-Type': 'application/json' }
 			}
 		);
+		history.push('/dashboard');
 	};
 
 	const goBack = async (event) => {
