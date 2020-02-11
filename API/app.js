@@ -299,7 +299,7 @@ router.post('/searchcontact', async(req, res, next) =>
 		var _ret = [];
 		for (var i = 0; i < results.length; i++) {
 			var temp = results[i].first_name + ' ' + results[i].last_name;
-			if(temp.includes(search)) {
+			if(temp.toLowerCase().includes(search.toLowerCase())) {
 				_ret.push({
 					first_name: results[i].first_name,
 					last_name: results[i].last_name,
