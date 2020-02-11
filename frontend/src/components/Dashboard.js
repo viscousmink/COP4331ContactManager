@@ -118,6 +118,7 @@ function Dashboard(props) {
 				`${contactList[i].first_name} ${contactList[i].last_name}`
 			);
 		}
+		localStorage.setItem('contact', JSON.stringify(contactList[0]));
 
 		console.log(contactStrings);
 
@@ -131,6 +132,10 @@ function Dashboard(props) {
 		// window.alert("You have successfully logged out!");
 		history.push('/');
 	};
+
+	const contactDisplay = async (event) => {
+		history.push('/contactcard')
+	}
 
 	return (
 		<>
@@ -147,7 +152,7 @@ function Dashboard(props) {
 					ref={(contact) => (search = contact)}
 				/>
 				<FaSearch />
-				<button onClick={getContacts}></button>
+				<button onClick={contactDisplay}></button>
 				{}
 				<br />
 				<div>
