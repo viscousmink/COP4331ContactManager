@@ -7,7 +7,10 @@ const sanitize = require('mongo-sanitize');
 const database = require('../database.js');
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
-const client = new MongoClient(database.URL, { useUnifiedTopology: true, connectTimeoutMS: 1000 });
+const client = new MongoClient(database.URL, {
+	useUnifiedTopology: true,
+	connectTimeoutMS: 1000
+});
 
 //connecting to the server
 client.connect(function(err, db) {
@@ -176,17 +179,16 @@ router.post('/login', async (req, res, next) => {
 	var err = '';
 
 	//console.log(result.password);
-	if(result != null) {
+	if (result != null) {
 		if (bcrypt.compareSync(password, result.password) == true) {
 			err = '';
 		} else {
 			err = 'not_correct_password';
-		} 
+		}
 	} else {
 		err = 'not_correct_password';
 	}
 	console.log(result);
-
 
 	var ret = {
 		error: err
@@ -281,10 +283,8 @@ router.put('/updatecontact', async (req, res, next) => {
 	res.status(200).json(ret);
 });
 
-
 //implement searchContact using post request
-router.post('/searchcontact', async(req, res, next) =>
-{
+router.post('/searchcontact', async (req, res, next) => {
 	console.log(req.body.search);
 	const user = sanitize(req.body.user);
 	const search = sanitize(req.body.search);
@@ -294,12 +294,12 @@ router.post('/searchcontact', async(req, res, next) =>
 		const db = client.db();
 		const results = await db
 			.collection('Contacts')
-			.find({ user: user})
+			.find({ user: user })
 			.toArray();
 		var _ret = [];
 		for (var i = 0; i < results.length; i++) {
 			var temp = results[i].first_name + ' ' + results[i].last_name;
-			if(temp.toLowerCase().includes(search.toLowerCase())) {
+			if (temp.toLowerCase().includes(search.toLowerCase())) {
 				_ret.push({
 					first_name: results[i].first_name,
 					last_name: results[i].last_name,
@@ -315,6 +315,5 @@ router.post('/searchcontact', async(req, res, next) =>
 		res.status(200).json(ret);
 	}
 });
-
 
 module.exports = router;
