@@ -283,30 +283,33 @@ router.put('/updatecontact', async (req, res, next) => {
 
 
 //implement searchContact using post request
-router.post('/searchContact', async(req, res, next) =>
+router.post('/searchcontact', async(req, res, next) =>
 {
-	console.log(req.body.user);
+	console.log(req.body.search);
 	const user = sanitize(req.body.user);
-	const first_name = sanitize(req.body.first_name);
+	const search = sanitize(req.body.search);
 
 	var err = '';
 	if (user) {
 		const db = client.db();
 		const results = await db
 			.collection('Contacts')
-			.find({ user: user, first_name: first_name})
+			.find({ user: user})
 			.toArray();
 		var _ret = [];
 		for (var i = 0; i < results.length; i++) {
-			_ret.push({
-				first_name: results[i].first_name,
-				last_name: results[i].last_name,
-				phone_number: results[i].phone_number,
-				email: results[i].email,
-				street: results[i].street,
-				city: results[i].city,
-				state: results[i].state
-			});
+			var temp = results[i].first_name + ' ' + results[i].last_name;
+			if(temp.includes(search)) {
+				_ret.push({
+					first_name: results[i].first_name,
+					last_name: results[i].last_name,
+					phone_number: results[i].phone_number,
+					email: results[i].email,
+					street: results[i].street,
+					city: results[i].city,
+					state: results[i].state
+				});
+			}
 		}
 		var ret = { results: _ret, error: err };
 		res.status(200).json(ret);
