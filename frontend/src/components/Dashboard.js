@@ -9,7 +9,13 @@ function Dashboard(props) {
 	let user = {};
 	let search;
 
+	let contactStrings = [];
+
 	const [contacts, setContacts] = useState([]);
+	// this hook will run once on render
+	useEffect(() => {
+		getContacts();
+	}, []);
 
 	const addContact = async (event) => {
 		history.push('/addcontact');
@@ -36,14 +42,15 @@ function Dashboard(props) {
 		let res = JSON.parse(await response.text());
 		let contactList = res.results;
 
-		console.log(contactList);
+		for (let i = 0; i < contactList.length; i++) {
+			contactStrings.push(
+				`${contactList[i].first_name} ${contactList[i].last_name}`
+			);
+		}
 
-		setContacts(contactList);
+		console.log(contactStrings);
 
-		// this hook will run once on render
-		useEffect(() => {
-			getContacts();
-		});
+		setContacts(contactStrings);
 	}
 
 	// const searchContactList = async (event) => {
@@ -87,8 +94,8 @@ function Dashboard(props) {
 	// 			getContacts();
 	// 		});
 
-	// 		// for (let i = 0; i < _results.length; i++) {
-	// 		// 	contacts.push(`${_results[i].first_name} ${_results[i].last_name}`);
+	// for (let i = 0; i < _results.length; i++) {
+	// 	contacts.push(`${_results[i].first_name} ${_results[i].last_name}`);
 	// 		// 	if (search.value === '') {
 	// 		// 		setMessage('');
 	// 		// 	} else {
