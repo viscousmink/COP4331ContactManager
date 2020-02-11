@@ -222,7 +222,7 @@ router.post('/createuser', async (req, res, next) => {
 });
 
 //implement updateContact using put request
-router.put('/updatecontact', async (req, res, next) => {
+router.post('/updatecontact', async (req, res, next) => {
 	//the user who's contact we are updating
 	const user = sanitize(req.body.filter.user);
 

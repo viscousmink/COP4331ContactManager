@@ -39,7 +39,7 @@ function Modify(props) {
 
 		console.log(user.user);
 
-		let js = `{"user":"${user.user}","first_name":"${firstName.value}","last_name":"${lastName.value}","phone_number":"${phoneNumber.value}","email":"${email.value}","street":"${street.value}","city":"${city.value}","state":"${state.value}"}`;
+		let js = `{"filter":{"user":"${user.user}","first_name":"${firstName.value}","last_name":"${lastName.value}","phone_number":"${phoneNumber.value}","email":"${email.value}","street":"${street.value}","city":"${city.value}","state":"${state.value}"}, "update":{"user":"${user.user}", "first_name":"${_contact.first_name}", "last_name":"${_contact.last_name}", "phone_number":"${_contact.phone_number}", "email":"${_contact.email}", "street":"${_contact.street}", "city":"${_contact.state}"}}`;
 		// // alert('Successfully logged in!');
 		console.log(js);
 
