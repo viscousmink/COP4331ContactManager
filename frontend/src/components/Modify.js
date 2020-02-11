@@ -24,17 +24,15 @@ function Modify(props) {
 			let _user = JSON.parse(retrievedObject);
 			user = _user;
 		}
-		let _contact = '';
-		if (localStorage.contact) {
-			let retrieved = localStorage.getItem('contact_data');
-			let _contact = JSON.parse(retrieved);
-			let name = _contact.first_name + _contact.last_name;
-			let address = _contact.street;
-			let phone = _contact.phone_number;
-			let city = _contact.city;
-			let state = _contact.state;
-			let email = _contact.email;
-		}
+		let retrieved = localStorage.getItem('contact_data');
+		let _contact = JSON.parse(retrieved);
+		let name = _contact.first_name + _contact.last_name;
+		let address = _contact.street;
+		let phone = _contact.phone_number;
+		let city = _contact.city;
+		let state = _contact.state;
+		let email = _contact.email;
+		
 		let jsUpdate = `{"user":"${user.user}", "first_name":"${_contact.first_name}", "last_name":"${_contact.last_name}", "phone_number":"${_contact.phone_number}", "email":"${_contact.email}", "street":"${_contact.street}", "city":"${_contact.state}"}`;
 
 		// console.log(user.user);

@@ -141,7 +141,7 @@ function Dashboard(props) {
 
 	const contactDisplay = async (event) => {
 
-		//ocalStorage.setItem('contact_data', JSON.stringify(event));
+		//localStorage.setItem('contact_data', JSON.stringify(event));
 		console.log(localStorage.getItem('contact_data'));
 		history.push('/contactcard');
 	};
