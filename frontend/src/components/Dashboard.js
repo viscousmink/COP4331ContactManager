@@ -38,21 +38,31 @@ function Dashboard(props) {
 				}
 			);
 
-			let res = JSON.parse(await response.text());
+			// let res = JSON.parse(await response.text());
 
-			console.log(res);
+			// console.log(res);
 
-			let _results = res.results;
+			// let txt = await response.text();
+			// let res = JSON.parse(txt);
+			// let _results = res.results;
+			// var resultText = '';
+			// for (var i = 0; i < _results.length; i++) {
+			// 	resultText += _results[i];
+			// 	if (i < _results.length - 1) {
+			// 		resultText += ', ';
+			// 	}
+			// }
+			// setMessage(resultText);
 
-			for (let i = 0; i < _results.length; i++) {
-				contacts.push(`${_results[i].first_name} ${_results[i].last_name}`);
-				if (search.value === '') {
-					setMessage('');
-				} else {
-					setMessage(contacts);
-				}
-				console.log(contacts[i]);
-			}
+			// for (let i = 0; i < _results.length; i++) {
+			// 	contacts.push(`${_results[i].first_name} ${_results[i].last_name}`);
+			// 	if (search.value === '') {
+			// 		setMessage('');
+			// 	} else {
+			// 		setMessage(contacts);
+			// 	}
+			// 	console.log(contacts[i]);
+			// }
 
 			// if (search.value === '') {
 			// 	setMessage('');
@@ -62,39 +72,6 @@ function Dashboard(props) {
 		} catch (e) {}
 
 		// User.user will allow us to get the user name.
-	};
-
-	const getContactList = async (event) => {
-		event.preventDefault();
-
-		console.log(localStorage.getItem('user_data'));
-		if (localStorage.user_data) {
-			let retrievedObject = localStorage.getItem('user_data');
-			let _user = JSON.parse(retrievedObject);
-			user = _user;
-		}
-
-		let js = `{"user":"${user.user}"}`;
-		// console.log(js);
-
-		try {
-			const response = await fetch(
-				'https://my-network-ucf.herokuapp.com/api/allcontacts',
-				{
-					method: 'POST',
-					body: js,
-					headers: { 'Content-Type': 'application/json' }
-				}
-			);
-
-			let res = JSON.parse(await response.text());
-
-			// Code to access first name of contacts
-			console.log(res.results[0].first_name);
-			let _results = res.results;
-		} catch (e) {
-			alert(e.toString());
-		}
 	};
 
 	const logout = async (event) => {
@@ -143,3 +120,18 @@ function Dashboard(props) {
 }
 
 export default Dashboard;
+// import React from 'react';
+
+// class Card extends React.Component {
+// 	render() {
+// 		return (
+// 			<>
+// 				<div>
+// 					<p>Hello</p>
+// 				</div>
+// 			</>
+// 		);
+// 	}
+// }
+
+// export default Card;
